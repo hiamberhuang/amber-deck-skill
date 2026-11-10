@@ -6,7 +6,7 @@
 
 ## 3 分钟上手
 
-**无需安装：**把 [SKILL.md](SKILL.md) 和这份仓库地址交给能读文件的 AI，然后用下面的示例。某些环境不能跟读 GitHub 链接，直接下载 ZIP，把解压后的目录交给 AI。
+**无需安装：**把 [SKILL.md](SKILL.md) 和这份仓库地址交给能读文件的 AI，然后用下面的示例。某些环境不能跟读 GitHub 链接，直接[下载最新版 ZIP](https://github.com/hiamberhuang/amber-deck-skill/releases/latest)，把解压后的目录交给 AI。
 
 **安装到 Codex 或 Claude Code：**
 
@@ -35,6 +35,7 @@ Skill 负责方法和验收；PPTX 生成、图片生成或浏览器渲染由你
 - [审美与叙事](references/art-direction.md)：正式提案、产品、舞台、复刻、决策五条路径，含该强调、可放过、要删的内容。
 - [120 张配方卡](references/effect-recipes.md)：排版、数据证据、原生动画、网页动效和控场。
 - [GitHub 选型表](references/github-index.md)：按任务查 Skill 和工具，含星数、许可与归档状态；星数不是效果评分。
+- [长框架处理](references/complex-briefs.md)：核对公司术语，分开日常流程和交付验收，处理时间与归因冲突。
 - [审稿清单](references/review.md)和[动效与交付](references/motion-and-output.md)：以实际 PPTX、HTML 或 PDF 的渲染为准。
 
 ## 团队怎样复用原件
