@@ -1,47 +1,37 @@
-# Amber Deck Skill
+# Amber Deck Skill · Feishu to HTML
 
-一套给 AI 用的演示设计方法。适合从文档做 PPT、把旧稿改得更清楚、还原参考稿，或为现场做可控的网页演示。
+**给 AI 一个飞书文档链接，交付一份可以打开、翻页和演示的 HTML deck。** 默认是 HTML；只有明确要求才做 PowerPoint。
 
-核心流程：**先锁受众与主张 → 选一个视觉方向 → 做三张关键页 → 渲染逐页验收**。正式稿的重点是让证据清楚；现场稿才为主持节拍安排动效。
+[下载最新版](https://github.com/hiamberhuang/amber-deck-skill/releases/latest) · [离线演示样例](examples/demo.html) · [视觉稿到 HTML 样例](examples/workbench.html)
 
-## 3 分钟上手
+## 怎么用
 
-**无需安装：**把 [SKILL.md](SKILL.md) 和这份仓库地址交给能读文件的 AI，然后用下面的示例。某些环境不能跟读 GitHub 链接，直接[下载最新版 ZIP](https://github.com/hiamberhuang/amber-deck-skill/releases/latest)，把解压后的目录交给 AI。
-
-**安装到 Codex 或 Claude Code：**
+把最新版解压后的目录交给能读文件的 AI，或安装到 Codex / Claude Code：
 
 ```bash
 git clone https://github.com/hiamberhuang/amber-deck-skill.git
 cd amber-deck-skill
 python3 scripts/install.py --host codex
-# Claude Code 用户改用 --host claude
+# Claude Code: python3 scripts/install.py --host claude
 ```
 
-在新对话说：
+在新对话里说：
 
-> 用 amber-deck-skill 把我附的框架做成一份给客户读的可编辑 PPTX。保留原来的关键观点，先做封面、证据页和行动页；原文没证实的数字不要写。交付 PPTX 和逐页预览。
+> 用 amber-deck-skill，把这个飞书文档做成 Amber 同款 HTML deck：〈飞书链接〉
 
-> 用 amber-deck-skill 做一个可离线播放的 16:9 大屏。动效只在揭示顺序和章节切换使用；要能用键盘翻页、黑屏、重播，并有静态备份。
+也可以给框架、截图或原来的 HTML。飞书资料由你当前的授权读取；同事必须有相应访问权限。如果已经有同系列的旧稿，提供旧稿链接或源码能更准确地复用画布、证据组件和控场。
 
-> 用 amber-deck-skill 审稿。先告诉我每页的主张、最强证据和要删的东西，按优先级排序。保留可编辑文字、图表和母版。
+## AI 怎么做
 
-Skill 负责方法和验收；PPTX 生成、图片生成或浏览器渲染由你的 AI 环境中相应工具完成。遇到只能导出图片的工具，要事先说明编辑性差异。
+1. **读源**：抓取飞书正文，记录版本，拆出主张和证据。
+2. **定视觉**：优先打开同类历史 HTML；新页面需要探索时，用 Image 2 或已授权图像模型先做视觉稿。
+3. **还原网页**：用真实 DOM、CSS、可编辑文字和素材还原；按需加入交互、导航和动效。
+4. **实播验收**：对照视觉稿逐页看实际浏览器结果，检查 16:9、移动端、键盘和离线。交付 HTML 和源码包。
 
-## 看效果和选工具
+[飞书入口](references/feishu-to-html.md) · [设计稿到 HTML 与前端技能组合](references/design-to-html.md) · [120 张排版与动效配方](references/effect-recipes.md) · [GitHub 选型索引](references/github-index.md)
 
-![示例：左侧是一句判断，右侧用三行交接单承接](assets/demo-slide.jpg)
+[查看样例视觉稿](assets/workbench-design.jpg)（用图像先定构图，网页重建文字、选中态和交互）。
 
-- [示范 Deck](examples/demo.html)：原创、可离线运行；下载后双击打开，按方向键翻页，R 重播、B 黑屏。它使用虚构材料。
-- [审美与叙事](references/art-direction.md)：正式提案、产品、舞台、复刻、决策五条路径，含该强调、可放过、要删的内容。
-- [120 张配方卡](references/effect-recipes.md)：排版、数据证据、原生动画、网页动效和控场。
-- [GitHub 选型表](references/github-index.md)：按任务查 Skill 和工具，含星数、许可与归档状态；星数不是效果评分。
-- [长框架处理](references/complex-briefs.md)：核对公司术语，分开日常流程和交付验收，处理时间与归因冲突。
-- [审稿清单](references/review.md)和[动效与交付](references/motion-and-output.md)：以实际 PPTX、HTML 或 PDF 的渲染为准。
+## 公司历史材料
 
-## 团队怎样复用原件
-
-公开包提供方法、样例与本地素材工具。组织原件由你们已有的受控资产库管理。给 AI 一个有权使用的样稿或单页；若团队有已索引的本地素材库，可按 [本地素材库指南](references/local-vault.md) 搜索项目，复制整套源码或指定文件到新目录。使用者的权限仍决定能读取哪些文件。
-
-## 反馈
-
-提交公开问题时请使用虚构样例，说明交付格式、哪一页出了问题、希望变成什么样；不要附原客户材料或内部截图。代码与原创说明适用 [MIT License](LICENSE)；第三方链接指向各自的许可。
+公开包提供方法与虚构样例。授权原件可按[本地资产库指南](references/local-vault.md)检索和复制；原始客户案例、内部代码和真实交付稿保留在各自的授权空间。公开反馈请使用虚构示例。原创代码与说明使用 [MIT License](LICENSE)；外链资源遵循各自许可。
