@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+  <rect width="1440" height="900" fill="#FBFAF8"/>
+  <rect width="232" height="900" fill="#F1EFEA"/>
+  <rect x="24" y="26" width="28" height="28" rx="7" fill="#E4003A"/><text x="62" y="46" font-size="17" font-weight="600" fill="#0E0F13">线索工作台</text>
+  <g font-size="14" fill="#636874"><rect x="14" y="88" width="204" height="36" rx="8" fill="#fff"/><text x="30" y="111" fill="#0E0F13" font-weight="600">总览</text><text x="30" y="155">线索池</text><text x="30" y="195">自动分配</text><text x="30" y="235">跟进记录</text><text x="30" y="275">报表</text></g>
+  <text x="272" y="62" font-size="24" font-weight="600" fill="#0E0F13">本周线索总览</text>
+  <text x="272" y="90" font-size="13" fill="#9AA0AB">11月3日 至 11月9日</text>
+  <g>
+    <rect x="272" y="120" width="270" height="118" rx="12" fill="#fff" stroke="#E7E4DE"/><text x="294" y="154" font-size="13" fill="#636874">新增线索</text><text x="294" y="204" font-size="38" font-weight="600" fill="#0E0F13">1,284</text>
+    <rect x="562" y="120" width="270" height="118" rx="12" fill="#fff" stroke="#E7E4DE"/><text x="584" y="154" font-size="13" fill="#636874">有效率</text><text x="584" y="204" font-size="38" font-weight="600" fill="#0E0F13">62.4%</text>
+    <rect x="852" y="120" width="270" height="118" rx="12" fill="#fff" stroke="#E7E4DE"/><text x="874" y="154" font-size="13" fill="#636874">平均响应</text><text x="874" y="204" font-size="38" font-weight="600" fill="#0E0F13">4 分钟</text>
+    <rect x="1142" y="120" width="270" height="118" rx="12" fill="#fff" stroke="#E7E4DE"/><text x="1164" y="154" font-size="13" fill="#636874">成交转化</text><text x="1164" y="204" font-size="38" font-weight="600" fill="#E4003A">11.8%</text>
+  </g>
+  <rect x="272" y="262" width="760" height="380" rx="12" fill="#fff" stroke="#E7E4DE"/>
+  <text x="296" y="300" font-size="15" font-weight="600" fill="#0E0F13">每日线索量</text>
+  <g stroke="#F0EDE8"><path d="M296 380H1008M296 450H1008M296 520H1008M296 590H1008"/></g>
+  <path d="M296 560 L415 520 L534 536 L653 468 L772 440 L891 392 L1008 360" fill="none" stroke="#E4003A" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M296 590 L415 574 L534 580 L653 548 L772 540 L891 512 L1008 500" fill="none" stroke="#C9C5BE" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="1008" cy="360" r="5" fill="#E4003A"/>
+  <rect x="1052" y="262" width="360" height="380" rx="12" fill="#fff" stroke="#E7E4DE"/>
+  <text x="1076" y="300" font-size="15" font-weight="600" fill="#0E0F13">来源渠道</text>
+  <g font-size="13" fill="#33363E">
+    <text x="1076" y="346">小红书</text><rect x="1150" y="334" width="220" height="14" rx="3" fill="#E4003A"/>
+    <text x="1076" y="390">官网表单</text><rect x="1150" y="378" width="168" height="14" rx="3" fill="#DCD8D1"/>
+    <text x="1076" y="434">展会</text><rect x="1150" y="422" width="120" height="14" rx="3" fill="#DCD8D1"/>
+    <text x="1076" y="478">转介绍</text><rect x="1150" y="466" width="86" height="14" rx="3" fill="#DCD8D1"/>
+    <text x="1076" y="522">其他</text><rect x="1150" y="510" width="42" height="14" rx="3" fill="#DCD8D1"/>
+  </g>
+  <rect x="272" y="666" width="1140" height="210" rx="12" fill="#fff" stroke="#E7E4DE"/>
+  <text x="296" y="704" font-size="15" font-weight="600" fill="#0E0F13">待跟进</text>
+  <g font-size="13" fill="#33363E"><path d="M296 724H1388M296 772H1388M296 820H1388" stroke="#F0EDE8"/>
+    <text x="296" y="754">华东区 · 连锁餐饮客户</text><text x="760" y="754" fill="#636874">来自小红书私信</text><text x="1290" y="754" fill="#E4003A">2 小时内到期</text>
+    <text x="296" y="802">华南区 · 户外品牌</text><text x="760" y="802" fill="#636874">官网表单</text><text x="1290" y="802" fill="#636874">今天</text>
+    <text x="296" y="850">西南区 · 教育机构</text><text x="760" y="850" fill="#636874">展会名片</text><text x="1290" y="850" fill="#636874">明天</text></g>
+</svg>

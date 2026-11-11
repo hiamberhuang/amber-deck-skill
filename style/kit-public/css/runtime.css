@@ -1,0 +1,55 @@
+/* Deck runtime: stage, slide visibility, chrome, overview, motion, print */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#E9E7E3;overflow:hidden;font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0;padding:0}
+ul,ol{list-style:none}
+em{font-style:normal;color:var(--accent);font-weight:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#stage{position:absolute;left:0;top:0;width:var(--canvas-w);height:var(--canvas-h);transform-origin:0 0;overflow:hidden;background:var(--bg)}
+.slide{position:absolute;inset:0;background:var(--bg);color:var(--ink);opacity:0;visibility:hidden;pointer-events:none;overflow:hidden;transition:opacity .35s ease,visibility .35s}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+
+/* entrance: header then body children, staggered */
+/* 用独立的 translate 属性做入场，避免覆盖原型自身的 transform 定位 */
+.slide .hd,.slide .body>*{opacity:0;translate:0 14px;transition:opacity .6s var(--ease),translate .7s var(--ease)}
+.slide.active .hd,.slide.active .body>*{opacity:1;translate:none}
+.slide.active .body>*:nth-child(2){transition-delay:.08s}.slide.active .body>*:nth-child(3){transition-delay:.16s}.slide.active .body>*:nth-child(4){transition-delay:.24s}.slide.active .body>*:nth-child(n+5){transition-delay:.3s}
+[data-step]{transition:opacity .45s var(--ease),translate .5s var(--ease)}
+[data-step]:not(.shown){opacity:.12;translate:0 8px}
+.no-motion *,.no-motion *::before,.no-motion *::after{transition:none!important;animation:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* chrome (inside stage, scales with it) */
+.chrome{position:absolute;z-index:20;left:var(--pad-x);right:var(--pad-x);bottom:16px;height:30px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--faint)}
+.chrome-label{position:absolute;left:0;letter-spacing:.04em;font-size:11.5px}
+.chrome-nav{display:flex;align-items:center;gap:16px}
+.chrome-nav button{width:30px;height:30px;border-radius:50%;background:rgba(127,127,127,.12);color:var(--muted);font-size:17px;line-height:1}
+.chrome-count{font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.chrome-tools{position:absolute;right:0;display:flex;gap:14px}
+.chrome-tools button{font-size:11.5px;color:var(--faint)}
+.chrome-tools button:hover,.chrome-nav button:hover{color:var(--ink)}
+.chrome-progress{position:absolute;left:calc(-1 * var(--pad-x));right:calc(-1 * var(--pad-x));bottom:-16px;height:2px;background:rgba(127,127,127,.15)}
+.chrome-progress i{display:block;height:100%;background:var(--accent);transform-origin:left;transition:transform .5s var(--ease)}
+
+/* overview */
+.overview{position:fixed;inset:0;z-index:50;overflow:auto;background:#1d1c1f;padding:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px 18px;align-content:start}
+.ov-tile{position:relative;display:block;width:100%;height:0;padding:56.25% 0 0;overflow:hidden;border-radius:6px;outline:1px solid #ffffff22;text-align:left;background:var(--bg)}
+.ov-tile.is-cur{outline:3px solid var(--accent)}
+.ov-tile .slide{position:absolute;left:0;top:0;width:1440px;height:810px;transform:scale(var(--ov-s,.2));transform-origin:0 0;opacity:1;visibility:visible;transition:none}
+.ov-tile .slide *{transition:none!important}
+.ov-tile .slide .hd,.ov-tile .slide .body>*,.ov-tile [data-step]{opacity:1;translate:none}
+.ov-tile>span{position:absolute;left:0;right:0;bottom:-1px;padding:4px 8px;font-size:11px;color:#fff;background:#000a}
+@container (min-width:0){}
+.is-overview #stage{visibility:hidden}
+
+/* print: one slide per page, all steps visible, no chrome */
+@page{size:1440px 810px;margin:0}
+@media print{
+  html,body{overflow:visible;background:var(--bg);height:auto;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  #stage{position:static;transform:none!important;width:1440px;height:auto;overflow:visible}
+  .slide{position:relative;opacity:1;visibility:visible;width:1440px;height:810px;break-after:page;page-break-after:always}
+  .slide .hd,.slide .body>*,[data-step]{opacity:1!important;translate:none!important}
+  .chrome,.overview{display:none!important}
+}
+.overview[hidden]{display:none}

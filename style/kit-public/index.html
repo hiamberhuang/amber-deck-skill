@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="zh-CN" data-family="warm">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deck Starter Kit · 原型样张</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/runtime.css">
+<link rel="stylesheet" href="css/archetypes.css">
+<link rel="stylesheet" href="brand/brand.css"><!-- Noumena 品牌层：做其他品牌时删掉这一行 -->
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20c1-3.6 3.6-5.5 6.5-5.5s5.5 1.9 6.5 5.5M15.5 14.6c2.6.2 4.6 1.9 5.5 5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-7M21 20H3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1.5"/><rect x="15" y="14" width="6" height="6" rx="1.5"/><path d="M9 7h4a2 2 0 0 1 2 2v5"/></symbol>
+  <symbol id="i-zapoff" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m13 4-6 9h5l-1 7 6-9h-5l1-7Z"/><path d="M4.5 19.5 19.5 4.5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m10 9 5 3-5 3V9Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6L12 3Z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 11h10.6L20.5 8H6.6"/><circle cx="9" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></symbol>
+  <symbol id="i-handoff" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <marker id="ah1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="var(--ring-1)"/></marker>
+</svg>
+
+<main id="stage">
+
+<!-- ═══ K01 · A01 大字居中封面 ═══════════════════════════════════════ -->
+<section class="slide cover" id="cover" data-name="大字封面">
+  <div class="cover-glow"></div><div class="cover-glow tl"></div>
+  <div class="brandmark"></div>
+  <div class="cover-stack">
+    <p class="cover-kicker">ENGLISH · KICKER · LINE</p>
+    <h1 class="cover-title">一句话主张<br>写成两行</h1>
+    <p class="cover-sub">副标题：这份方案解决谁的什么问题</p>
+    <p class="cover-desc">一行补充说明，不超过 30 个字</p>
+  </div>
+  <div class="cover-meta">
+    <div><b>场合 / 活动名称</b>适用对象 · 版本说明</div>
+    <div style="text-align:right"><b>讲者姓名 · 职位</b>YYYY.MM</div>
+  </div>
+</section>
+
+<!-- ═══ K02 · A02 红黑圆形封面（redblack）══════════════════════════════ -->
+<section class="slide cover-rb" id="cover-redblack" data-family="redblack" data-name="红黑封面">
+  <p class="rb-kicker">BRAND · INDUSTRY SOLUTION</p>
+  <div class="brandmark"></div><i class="rb-rule"></i>
+  <div class="rb-text">
+    <p>专为某类客户打造——</p>
+    <h1>行业名称 <em>增长方案</em></h1>
+    <p class="rb-desc">用一句话说明路径：从哪里来，到哪里去</p>
+  </div>
+  <i class="rb-disc red"></i><i class="rb-disc black"></i>
+  <div class="rb-foot"><span>SOLUTION LINE<br>POWERED BY BRAND</span><span style="align-self:flex-end">YYYY</span></div>
+</section>
+
+<!-- ═══ K03 · A03 暗场实景封面（dark）══════════════════════════════════ -->
+<section class="slide" id="cover-dark" data-family="dark" data-name="暗场封面">
+  <div class="dark-photo"></div><div class="dark-veil"></div>
+  <div class="brandmark"></div>
+  <h1 class="dc-title">活动<br>主视觉标题</h1>
+  <p class="dc-slogan">用一句口号说清<br>这场活动的<em>核心目标</em></p>
+  <div class="dc-who"><b>讲者</b><span>机构 · 角色<br>活动 / 项目职务</span></div>
+  <i class="dc-rail"></i>
+</section>
+
+<!-- ═══ K04 · A05 反差主张（dark）═══════════════════════════════════════ -->
+<section class="slide" id="statement" data-family="dark" data-name="反差主张">
+  <div class="dark-bg"></div>
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">THE REVERSAL · 我们反过来做</p></div>
+  <div class="st-rows">
+    <div class="st-row"><small>别人</small><strong>WORD A</strong><i>常规做法</i></div>
+    <div class="st-row hot"><small>我们</small><strong>WORD B</strong><i>不同做法</i></div>
+  </div>
+  <p class="st-line">一句话解释这个反差：从哪个真实问题出发，换来什么结果。</p>
+  <div class="st-facts">
+    <div><p class="kicker">WHO</p><b>谁来出题</b><p>一句说明参与者和职责</p></div>
+    <div><p class="kicker">HOW</p><b>怎么组队</b><p>业务 × 技术，共同解题</p></div>
+    <div><p class="kicker">WHEN</p><b>多长时间</b><p>节奏、产出与评审方式</p></div>
+  </div>
+</section>
+
+<!-- ═══ K05 · A06 关于我们：团队＋历程 ═══════════════════════════════════ -->
+<section class="slide" id="about" data-name="团队与历程">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">机构介绍</p><h2 class="title">关于 <em>机构名称</em></h2><p class="sub">一句话定位：我们是谁，为谁解决什么问题</p></div>
+  <div class="body about">
+    <div class="card person"><i class="avatar">A</i><b>姓名<small>Name</small></b><span class="role">角色 · 职务</span><p>一行过往经历<br>一行专业背景</p></div>
+    <div class="card person"><i class="avatar">B</i><b>姓名<small>Name</small></b><span class="role">角色 · 职务</span><p>一行过往经历<br>一行专业背景</p></div>
+    <div class="card tl-card"><h4>↗ 发展历程</h4>
+      <ul class="tl">
+        <li><time>YYYY.MM</time><b>阶段一：成立</b></li>
+        <li><time>YYYY.MM</time><b>阶段二：里程碑</b><span class="hot">关键事件</span><span>合作方</span></li>
+        <li><time>YYYY.MM</time><b>阶段三：里程碑</b><span class="hot">关键事件</span><span>合作方</span></li>
+        <li class="now"><time>YYYY.MM</time><b>阶段四：现在</b><span class="hot">关键事件</span></li>
+      </ul></div>
+    <div class="card person"><i class="avatar">C</i><b>姓名<small>Name</small></b><span class="role">角色 · 职务</span><p>一行过往经历<br>一行专业背景</p></div>
+    <div class="card person"><i class="avatar">D</i><b>姓名<small>Name</small></b><span class="role">角色 · 职务</span><p>一行过往经历<br>一行专业背景</p></div>
+    <div class="card cap"><b>核心能力</b><p>一句话写清能力边界</p></div>
+    <div class="card cap"><b>核心信念</b><p>一句话写清方法论</p></div>
+    <div class="card cap"><b>落地范围</b><p>一句话写清服务行业</p></div>
+  </div>
+</section>
+
+<!-- ═══ K06 · A08 分层阶梯 ════════════════════════════════════════════ -->
+<section class="slide" id="tier-ladder" data-name="分层阶梯">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">业务模式</p><h2 class="title">不同客群，<em>用不同打法</em></h2><p class="sub">从上到下价值依次递减、规模依次放大；每层写清服务方式和交付结果</p></div>
+  <div class="body ladder">
+    <div class="ladder-axis"><span>高价值共建</span><span>规模化增长</span><span>产品驱动</span><span>生态合作</span></div>
+    <div class="ladder-rows">
+      <div class="card lrow"><div class="ltag">L1</div><div class="lname"><b>头部客户</b><span>深度共建 · 定制交付</span></div><div class="llogos"><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i></div><div class="lout"><svg class="ico"><use href="#i-target"/></svg>引领行业标杆<br>沉淀方法论</div></div>
+      <div class="card lrow"><div class="ltag">L2</div><div class="lname"><b>腰部企业</b><span>标准方案 · 快速上线</span></div><div class="llogos"><i>LOGO</i><i>LOGO</i><i>LOGO</i><i>LOGO</i></div><div class="lout"><svg class="ico"><use href="#i-chart"/></svg>验证增长<br>复制打法</div></div>
+      <div class="card lrow"><div class="ltag">L3</div><div class="lname"><b>产品自助</b><span>工具订阅 · 自主使用</span></div><div class="llogos"><i>模块</i><i>模块</i><i>模块</i><i>模块</i></div><div class="lout"><svg class="ico"><use href="#i-box"/></svg>产品化能力<br>规模化触达</div></div>
+      <div class="card lrow"><div class="ltag">L4</div><div class="lname"><b>渠道生态</b><span>伙伴分发 · 联合交付</span></div><div class="llogos"><i>伙伴</i><i>伙伴</i><i>伙伴</i><i>伙伴</i></div><div class="lout"><svg class="ico"><use href="#i-globe"/></svg>连接更多客户<br>扩大覆盖</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K07 · A09 趋势曲线＋演进路线 ════════════════════════════════════ -->
+<section class="slide" id="curve-roadmap" data-name="曲线与路线">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">行业判断</p><h2 class="title">把经验变成可训练的判断，<em>让每次投入更准</em></h2><p class="sub">左图说明拐点在哪里，右栏给出三条推论，底部是能力演进的四个阶段</p></div>
+  <div class="body cr">
+    <div class="card cr-chart">
+      <svg viewBox="0 0 880 330">
+        <path d="M60 10V290H860" fill="none" stroke="#D9D5CE" stroke-width="1.5"/>
+        <text x="66" y="22">价值 / 护城河强度 ↑</text>
+        <path d="M70 250C250 230 380 150 520 120S760 70 850 52" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
+        <path d="M70 120C230 70 380 90 520 150S760 250 850 270" fill="none" stroke="#3D6FD8" stroke-width="2.6"/>
+        <path d="M70 200C300 190 600 210 850 220" fill="none" stroke="#B9B3AA" stroke-width="1.6" stroke-dasharray="5 5"/>
+        <circle cx="474" cy="132" r="7" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+        <text x="430" y="112" fill="var(--ink)" style="font-weight:700">价值迁移点</text>
+        <text x="804" y="44" fill="var(--accent)" style="font-weight:700">能力 A</text>
+        <text x="804" y="290" fill="#3D6FD8" style="font-weight:700">能力 B</text>
+        <text x="700" y="214">对照线（行业平均）</text>
+        <text x="110" y="314">阶段一 · 现状</text><text x="420" y="314">阶段二 · 拐点</text><text x="700" y="314">阶段三 · 未来</text>
+      </svg>
+    </div>
+    <div class="card cr-side">
+      <h4>结论写在这里：<em>什么变得稀缺</em>，什么变得廉价</h4>
+      <ul style="display:flex;flex-direction:column;gap:16px">
+        <li class="hot"><b>推论一</b><span>一句话写清第一条推论的依据</span></li>
+        <li><b>推论二</b><span>一句话写清第二条推论的依据</span></li>
+        <li><b>推论三</b><span>一句话写清第三条推论的依据</span></li>
+      </ul>
+    </div>
+    <div class="road"><div class="road-label">演进之路</div>
+      <div class="road-node"><time>YYYY</time><b>能力积累期</b><span>一行说明</span></div>
+      <div class="road-node"><time>YYYY.MM</time><b>方法成型</b><span>一行说明</span></div>
+      <div class="road-node"><time>YYYY.MM</time><b>架构升级</b><span>一行说明</span></div>
+      <div class="road-node hot"><time>现在</time><b>产品落地</b><span>一行说明当前形态</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K08 · A10 核心圆＋应用范围 ══════════════════════════════════════ -->
+<section class="slide" id="hub-scope" data-name="核心与范围">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">系统定位</p><h2 class="title">建立一套<em>「核心能力」</em>系统</h2><p class="sub">这不是愿景，是已经跑通并在客户业务里运行的能力——我们交付的就是这套系统本身</p></div>
+  <div class="body hub">
+    <div class="hub-art">
+      <i class="hub-ring r1"></i><i class="hub-ring r2"></i>
+      <div class="hub-core"><svg class="ico"><use href="#i-db"/></svg><b>核心资产</b><p>一句话定义核心能力<br>以及它为什么难以复制</p></div>
+      <div class="hub-sat" style="left:420px;top:110px"><svg class="ico"><use href="#i-users"/></svg><b>协作方式</b><p>把重复决策交给系统，<br>把判断时间还给团队</p></div>
+      <div class="hub-sat" style="left:630px;top:110px"><svg class="ico"><use href="#i-loop"/></svg><b>增长机制</b><p>一起重新设计流程，<br>用新工具跑新模式</p></div>
+      <div class="hub-strip"><div><b>输入 · 数据</b>一句话说明进入系统的原料</div><div><b>过程 · 协作</b>一句话说明人和 AI 怎么分工</div><div><b>输出 · 结果</b>一句话说明系统交付什么</div></div>
+    </div>
+    <div class="hub-scope"><h4>应用范围</h4>
+      <div class="card scope"><div><small>场景一</small><b>场景名称</b><p>环节 A<i>→</i>环节 B<i>→</i>环节 C</p></div>
+        <svg viewBox="0 0 120 90" fill="none" stroke="var(--accent)" stroke-width="1.6"><rect x="8" y="22" width="70" height="52" rx="6" fill="var(--accent-soft)" stroke="var(--accent-soft-2)"/><path d="M16 36h40M16 46h30" stroke="var(--accent-tint)"/><path d="M20 18c20-16 60-16 78 4" stroke-dasharray="4 4"/><circle cx="102" cy="30" r="10" fill="#fff"/><path d="M98 30h8M102 26v8"/></svg></div>
+      <div class="card scope"><div><small>场景二</small><b>场景名称</b><p>环节 A<i>→</i>环节 B<i>→</i>环节 C</p></div>
+        <svg viewBox="0 0 120 90" fill="none" stroke="var(--accent)" stroke-width="1.6"><rect x="42" y="10" width="40" height="70" rx="7" fill="#fff"/><rect x="48" y="20" width="28" height="22" rx="3" fill="var(--accent-soft)"/><circle cx="20" cy="30" r="8" fill="var(--accent-soft)"/><circle cx="20" cy="60" r="8" fill="var(--accent-soft)"/><circle cx="102" cy="26" r="8"/><circle cx="102" cy="56" r="8"/><path d="M28 30h12M84 26h10M84 56h10"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K09 · A12 三环协作产线（机制图）══════════════════════════════════ -->
+<section class="slide" id="loop-rings" data-name="三环机制">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">核心机制</p><h2 class="title">人机协作产线 · <em>三环自转</em></h2><p class="sub">从找机会、到做内容、到拿结果，三个环各自运转；中枢在上方统筹，沉淀的资产全部回流到中枢</p></div>
+  <div class="body loop">
+    <div class="loop-brain">
+      <div><h4>统筹中枢</h4><p>决定下一批做什么、用什么方向、投多少资源<br>三个环沉淀的资产全部回到这里，越攒越厚</p></div>
+      <span class="ai-chip">◎ AI 复盘<small>数字员工</small></span>
+      <div class="assets"><div class="assets-tags"><span><b>资产一 · 证据档案</b></span><span><b>资产二 · 判断理由</b></span><span><b>资产三 · 效果数据</b></span></div>
+        <div class="assets-blocks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    </div>
+    <svg class="loop-lines" viewBox="0 0 1304 536">
+      <defs>
+        <marker id="ah2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="var(--ring-2)"/></marker>
+        <marker id="ah3" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="var(--ring-3)"/></marker>
+        <marker id="ahg" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#A8A49B"/></marker>
+      </defs>
+      <path d="M293.2 192.2 A140 150 0 0 1 352.8 281.7" stroke="var(--ring-1)" marker-end="url(#ah1)"/>
+      <path d="M352.8 354.3 A140 150 0 0 1 293.2 443.8" stroke="var(--ring-1)" marker-end="url(#ah1)"/>
+      <path d="M140.8 443.8 A140 150 0 0 1 81.2 354.3" stroke="var(--ring-1)" marker-end="url(#ah1)"/>
+      <path d="M81.2 281.7 A140 150 0 0 1 140.8 192.2" stroke="var(--ring-1)" marker-end="url(#ah1)"/>
+      <path d="M728.2 192.2 A140 150 0 0 1 787.8 281.7" stroke="var(--ring-2)" marker-end="url(#ah2)"/>
+      <path d="M787.8 354.3 A140 150 0 0 1 728.2 443.8" stroke="var(--ring-2)" marker-end="url(#ah2)"/>
+      <path d="M575.8 443.8 A140 150 0 0 1 516.2 354.3" stroke="var(--ring-2)" marker-end="url(#ah2)"/>
+      <path d="M516.2 281.7 A140 150 0 0 1 575.8 192.2" stroke="var(--ring-2)" marker-end="url(#ah2)"/>
+      <path d="M1163.2 192.2 A140 150 0 0 1 1222.8 281.7" stroke="var(--ring-3)" marker-end="url(#ah3)"/>
+      <path d="M1222.8 354.3 A140 150 0 0 1 1163.2 443.8" stroke="var(--ring-3)" marker-end="url(#ah3)"/>
+      <path d="M1010.8 443.8 A140 150 0 0 1 951.2 354.3" stroke="var(--ring-3)" marker-end="url(#ah3)"/>
+      <path d="M951.2 281.7 A140 150 0 0 1 1010.8 192.2" stroke="var(--ring-3)" marker-end="url(#ah3)"/>
+      <path class="v" d="M187 96V138" stroke="#A8A49B" marker-end="url(#ahg)"/><path class="v" d="M247 140V100" stroke="var(--ring-1)" marker-end="url(#ah1)"/>
+      <path class="v" d="M622 96V138" stroke="#A8A49B" marker-end="url(#ahg)"/><path class="v" d="M682 140V100" stroke="var(--ring-2)" marker-end="url(#ah2)"/>
+      <path class="v" d="M1057 96V138" stroke="#A8A49B" marker-end="url(#ahg)"/><path class="v" d="M1117 140V100" stroke="var(--ring-3)" marker-end="url(#ah3)"/>
+    </svg>
+    <span class="flow-tag" style="left:578px;top:110px">下发 ↓</span><span class="flow-tag" style="left:694px;top:110px">↑ 资产回流</span>
+
+    <div class="ln c1" style="left:217px;top:168px">扫描公开信号<small>每天更新</small></div>
+    <div class="ln c1" style="left:357px;top:318px">提炼需求<small>行为 → 诉求</small></div>
+    <div class="ln human" style="left:217px;top:468px">判方向：做不做</div>
+    <div class="ln c1" style="left:77px;top:318px">补证据<small>场景 → 方案</small></div>
+    <b class="ring-name c1" style="left:217px;top:296px">洞察环</b><span class="ai-chip c1" style="left:217px;top:346px">◎ AI 洞察<small>数字员工</small></span>
+    <p class="ring-cap c1" style="left:217px;top:496px"><b>节奏 · 每天重读一遍</b>一句话说明这个环产出什么</p>
+
+    <div class="ln human" style="left:652px;top:168px">定约束 · 冻结<small>事实 / 规则</small></div>
+    <div class="ln c2" style="left:792px;top:318px">出候选 + 自检</div>
+    <div class="ln human" style="left:652px;top:468px">拍板：过 / 打回</div>
+    <div class="ln c2" style="left:512px;top:318px">按判断修改</div>
+    <b class="ring-name c2" style="left:652px;top:296px">生产环</b><span class="ai-chip c2" style="left:652px;top:346px">◎ AI 内容<small>数字员工</small></span>
+    <p class="ring-cap c2" style="left:652px;top:496px"><b>节奏 · 一版一版地转</b>一个任务拆成若干道工序，打回即建下一版</p>
+
+    <div class="ln c3" style="left:1087px;top:168px">上线投放</div>
+    <div class="ln c3" style="left:1227px;top:318px">效果回流</div>
+    <div class="ln human" style="left:1087px;top:468px">看数 · 定下一批</div>
+    <div class="ln c3" style="left:947px;top:318px">写回约束</div>
+    <b class="ring-name c3" style="left:1087px;top:296px">投放环</b><span class="ai-chip c3" style="left:1087px;top:346px">◎ AI 投放<small>数字员工</small></span>
+    <p class="ring-cap c3" style="left:1087px;top:496px"><b>节奏 · 一批一批地转</b>效果既回中枢，也写回生产环的约束</p>
+  </div>
+</section>
+
+<!-- ═══ K10 · A13 对比卡＋结果条 ═══════════════════════════════════════ -->
+<section class="slide" id="vs-cards" data-name="对比与结果">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">核心差异</p><h2 class="title">判断频率决定结果：<em>从按月进入按天</em></h2><p class="sub">传统方式按月交付、内部团队按周开会；我们把验证压到每天，一边交付结果，一边沉淀方法</p></div>
+  <div class="body vs">
+    <div class="vs-card"><span class="who"><svg class="ico"><use href="#i-user"/></svg></span><b>方式 A</b><div class="big num">~NN<small>次</small></div><div class="ticks"></div><p>按月交付<br>单次成本高</p><i class="vs-dot">VS</i></div>
+    <div class="vs-card mid"><span class="who"><svg class="ico"><use href="#i-users"/></svg></span><b>方式 B</b><div class="big num">~NN<small>次</small></div><div class="ticks"></div><p>按周复盘<br>人力时间成本高</p><i class="vs-dot">VS</i></div>
+    <div class="vs-card hero"><span class="who"><svg class="ico"><use href="#i-spark"/></svg></span><b>我们</b><div class="big num">NNN+<small>次</small></div><div class="ticks"></div><p>日级验证 · 周级调整<br>月级定方向</p></div>
+    <div class="vs-why"><span class="chip">为什么我们能做到高频？</span>
+      <ul><li><b><span>01</span>结构一</b><p>一句话说明组织结构上的差异</p></li>
+      <li><b><span>02</span>结构二</b><p>一句话说明利益机制上的差异</p></li>
+      <li><b><span>03</span>结构三</b><p>一句话说明为什么能力会复利</p></li></ul></div>
+    <div class="vs-res">
+      <div><small>结果一 · 指标</small><b class="num">+XX%</b></div>
+      <div><small>结果二 · 指标</small><b class="num">NN → N</b></div>
+      <div><small>结果三 · 指标</small><b class="num">+XX%</b></div>
+      <div><small>结果四 · 指标</small><b class="num">X% → Y%</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K11 · A14 四阶段方法卡 ═════════════════════════════════════════ -->
+<section class="slide" id="phase-cards" data-name="四阶段方法">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">方法论</p><h2 class="title">四个阶段，<em>把增长变成确定性</em></h2><p class="sub">先拆开旧结构，再编排新系统，在真实业务里运行，最后把能力<b>移交给客户自己</b></p></div>
+  <div class="body phases">
+    <article class="card phase"><p class="kicker">Phase 01</p><h3>DIAGNOSE</h3>
+      <figure><svg viewBox="0 0 260 170" fill="none" stroke-width="1.4"><path d="M20 98 80 68l60 30-60 30-60-30Z" fill="#F3F1EE" stroke="#C9C4BC"/><path d="M20 98v14l60 30 60-30V98" stroke="#C9C4BC"/><path d="M50 83l60 30M80 68v60" stroke="#D9D5CE"/><circle cx="70" cy="92" r="4" fill="#B9B3AA"/><circle cx="96" cy="106" r="4" fill="#B9B3AA"/><path d="M146 92c14-12 18-12 26-12" stroke="var(--accent)" stroke-width="2"/><g stroke="var(--accent)" fill="#fff"><path d="M176 80l12-6 12 6-12 6Z"/><path d="M204 80l12-6 12 6-12 6Z"/><path d="M232 80l12-6 12 6-12 6Z" transform="translate(-4 0)"/></g><text x="56" y="160">旧模型</text><text x="176" y="108">拆成可重组的部件</text></svg></figure>
+      <h4>拆开旧结构</h4><p class="claim">旧结构跑不动，先拆掉才有位置装新引擎。</p>
+      <ul><li>把旧模型拆成基础部件</li><li>诊断 / 约束 / 决策 / 数据</li><li>去掉低频的大决策节奏</li></ul></article>
+    <article class="card phase"><p class="kicker">Phase 02</p><h3>DESIGN</h3>
+      <figure><svg viewBox="0 0 260 170" fill="none" stroke-width="1.4"><path d="M130 40 220 85 130 130 40 85Z" stroke="#C9C4BC"/><path d="M130 60 180 85 130 110 80 85Z" stroke="var(--accent-tint)" stroke-dasharray="4 4"/><path d="M130 72l14 7-14 7-14-7Z" fill="var(--accent)" stroke="var(--accent)"/><path d="M116 79v12l14 7 14-7V79" fill="var(--accent-soft-2)" stroke="var(--accent)"/><path d="M130 14v20M130 156v-20M14 85h20M246 85h-20" stroke="#A8A49B"/><text x="112" y="12">业务逻辑</text><text x="112" y="168">数据底座</text><text x="0" y="80">人</text><text x="222" y="80">AI</text></svg></figure>
+      <h4>编排新系统</h4><p class="claim">把人、AI、业务逻辑和数据编进同一个系统。</p>
+      <ul><li>四要素：逻辑 · 人 · AI · 数据</li><li>业务 × 技术的最小作战单元</li><li>判断被结构化记录</li></ul></article>
+    <article class="card phase"><p class="kicker">Phase 03</p><h3>OPERATE</h3>
+      <figure><svg viewBox="0 0 260 170" fill="none" stroke-width="1.4"><text x="62" y="40">在真实业务里运行的系统</text><g stroke="#A8A49B" fill="#fff"><rect x="6" y="56" width="44" height="30" rx="7"/><rect x="58" y="56" width="44" height="30" rx="7"/><rect x="110" y="56" width="44" height="30" rx="7"/><rect x="162" y="56" width="44" height="30" rx="7"/><rect x="214" y="56" width="44" height="30" rx="7"/></g><g style="font-size:11px" fill="var(--ink)" stroke="none"><text x="16" y="75">执行</text><text x="68" y="75">观测</text><text x="120" y="75">学习</text><text x="172" y="75">沉淀</text><text x="224" y="75">结果</text></g><path d="M236 92v22H28V96" stroke="var(--accent)" stroke-width="2"/><path d="m23 102 5-8 5 8" stroke="var(--accent)" stroke-width="2"/><text x="78" y="134" fill="var(--accent)">闭环运行 · 结果回流再训练</text></svg></figure>
+      <h4>在真实业务中运行</h4><p class="claim">价值只在真实业务里衡量，不在方案里。</p>
+      <ul><li>执行 → 观测 → 学习 → 沉淀</li><li>在现有预算内下场跑</li><li>每轮结果回流，精度爬坡</li></ul></article>
+    <article class="card phase"><p class="kicker">Phase 04</p><h3>HANDOVER</h3>
+      <figure><svg viewBox="0 0 260 170" fill="none" stroke-width="1.4"><text x="10" y="30">服务方 建 · 跑</text><path d="M14 96 64 72l50 24-50 24Z" fill="#F3F1EE" stroke="#C9C4BC"/><path d="M64 70l18-9 18 9-18 9Z" fill="var(--accent-soft-2)" stroke="var(--accent)"/><path d="M46 79v14l18 9 18-9V79" stroke="var(--accent)"/><path d="M130 30v120" stroke="#C9C4BC" stroke-dasharray="4 4"/><path d="M118 96h40" stroke="var(--accent)" stroke-width="2.4"/><path d="m154 90 8 6-8 6" fill="var(--accent)" stroke="var(--accent)"/><path d="M168 98l46-22 46 22-46 22Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/><path d="M196 82l18-9 18 9-18 9Z" fill="var(--accent-soft-2)" stroke="var(--accent)"/><path d="M196 82v12l18 9 18-9V82" stroke="var(--accent)"/><path d="M200 52l-6-8M214 48v-10M228 52l6-8" stroke="var(--accent)"/><text x="166" y="150" fill="var(--accent)">客户自有的能力资产</text></svg></figure>
+      <h4>移交自有能力</h4><p class="claim">买的是结果，留下的是能力。</p>
+      <ul><li>整套作战单元整体移交</li><li>系统 · 技能 · SOP · 团队能力</li><li>人走经验不走，能力可复利</li></ul></article>
+  </div>
+</section>
+
+<!-- ═══ K12 · A15 转化机制链 ═══════════════════════════════════════════ -->
+<section class="slide" id="chevron" data-name="转化链">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">合作模式</p><h2 class="title">从服务交付，<em>到能力产品</em></h2><p class="sub">四步机制把一次性的服务，转化成客户可长期复用的系统；每一步都写清楚交付物</p></div>
+  <div class="body chev">
+    <div class="chev-row">
+      <div class="card chev-end"><span class="icon-b"><svg class="ico"><use href="#i-users"/></svg></span><b>起点：服务</b><small>专家 + 执行 + 中台</small>
+        <ul><li>统筹整合营销</li><li>跑通核心链路</li><li>提升业务结果</li></ul></div>
+      <div class="chev-arrow">›</div>
+      <div class="chev-mid"><h5>转化机制</h5>
+        <div class="chev-blocks">
+          <div><small>STEP 1</small><svg class="ico"><use href="#i-search"/></svg><b>打破旧流程</b></div>
+          <div><small>STEP 2</small><svg class="ico"><use href="#i-spark"/></svg><b>重构人机协作</b></div>
+          <div><small>STEP 3</small><svg class="ico"><use href="#i-check"/></svg><b>真实业务验证</b></div>
+          <div><small>STEP 4</small><svg class="ico"><use href="#i-handoff"/></svg><b>能力移交客户</b></div>
+        </div>
+        <div class="chev-notes"><p>识别增长瓶颈<br>与责任盲区</p><p>重新定义角色、<br>流程与数据机制</p><p>运行、投放与复盘闭环<br>识别可复制的胜率模式</p><p>移交 SOP、数据与方法<br>人员培训与指导交接</p></div>
+      </div>
+      <div class="chev-arrow">›</div>
+      <div class="card chev-end out"><span class="icon-b"><svg class="ico"><use href="#i-box"/></svg></span><b>终点：产品</b><small>客户可长期复用的系统</small>
+        <ul><li>固化 SOP / 上下文</li><li>沉淀数据反馈</li><li>客户团队复用</li></ul></div>
+    </div>
+    <div class="lead-bar"><b>一句结论：</b>把验证过的地图、数据、SOP 与 AI 能力，沉淀成客户自己的增长中台。</div>
+  </div>
+</section>
+
+<!-- ═══ K13 · A16 三处断点汇聚 ═════════════════════════════════════════ -->
+<section class="slide no-sub" id="breakpoints" data-name="三处断点">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">行业变化</p><h2 class="title">同一笔生意，数据却<em>散在三处</em></h2></div>
+  <div class="body bp">
+    <div class="bp-wins">
+      <div class="win bp-win"><div class="win-bar"><i></i><i></i><i></i></div><div class="in"><b>来源 A</b><span>渠道一 / 渠道二 / 渠道三</span><em>各自认领结果</em></div></div>
+      <div class="win bp-win"><div class="win-bar"><i></i><i></i><i></i></div><div class="in"><b>来源 B</b><span>报表一 / 报表二</span><em>各有统计口径</em></div></div>
+      <div class="win bp-win"><div class="win-bar"><i></i><i></i><i></i></div><div class="in"><b>来源 C</b><span>订单 / 新客 / 复购</span><em>记录真实结果</em></div></div>
+    </div>
+    <svg viewBox="0 0 1304 566"><defs><marker id="ahr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="var(--accent)" stroke-width="1.8"/></marker></defs>
+      <path d="M181 202V254H600V298" marker-end="url(#ahr)"/><path d="M652 202V298" marker-end="url(#ahr)"/><path d="M1123 202V254H704V298" marker-end="url(#ahr)"/></svg>
+    <div class="bp-q">谁来把这些账，对成一本？</div>
+    <div class="bp-why">
+      <div><b>口径不一</b>每个来源都只看见自己那一段，加总后对不上真实结果</div>
+      <div><b>时差存在</b>决策周期长，当天没有结果不等于没有效果</div>
+      <div><b>没人负责</b>没有专职分析的团队，最缺的是有人把账管起来</div>
+    </div>
+    <div class="lead-bar"><b>预算收紧、执行外包、口径变化。</b>三件事叠加，让「对账」从可选项变成必选项。</div>
+  </div>
+</section>
+
+<!-- ═══ K14 · A18 Before / After ═══════════════════════════════════════ -->
+<section class="slide no-sub" id="before-after" data-name="前后对比">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">重新计算</p><h2 class="title">看着便宜，实际却贵了 <em>N 倍</em></h2></div>
+  <div class="body ba">
+    <div class="card ba-card"><small>表面口径 · 单位成本</small><div class="price num"><sup>$</sup>NN</div><p>计算方式：总花费 ÷ 全部结果数</p></div>
+    <div class="ba-arrow">→</div>
+    <div class="card ba-card after"><small>真实口径 · 单位成本</small><div class="price num"><sup>$</sup>NNN</div><p>计算方式：总花费 ÷ 真正新增的结果数</p></div>
+    <div class="ba-split"><header>全部结果的真实构成<span>同样的花费，只有一部分在带来新增</span></header>
+      <div class="ba-bar"><span style="flex:2">NNN · 原本就会发生</span><span class="hot" style="flex:1">NNN · 真正新增</span></div></div>
+    <div class="ba-notes">
+      <div class="card"><b>大部分结果原本就会发生。</b><br>报表看起来很好，但未必真的带来了增量。</div>
+      <div class="card">只看点击，又会低估长周期的影响。<br><b>拿错数字分预算，钱就会投偏。</b></div>
+    </div>
+    <p class="ba-foot">注：示例数字为占位，替换时写明口径、时间范围与数据来源。</p>
+  </div>
+</section>
+
+<!-- ═══ K15 · A19 产品截图＋来源步骤 ════════════════════════════════════ -->
+<section class="slide" id="evidence-screenshot" data-name="截图证据">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">产品能力</p><h2 class="title">三路数据，<em>汇成一本真账</em></h2><p class="sub">左侧是数据从哪里来，右侧是汇总后的真实界面；截图不缩成邮票大小，至少占画布宽度的 60%</p></div>
+  <div class="body ev">
+    <div class="ev-src">
+      <div class="card"><i>01</i><div><b>来源 A</b><small>渠道一 / 渠道二 / 渠道三</small></div></div><div class="down">↓</div>
+      <div class="card"><i>02</i><div><b>来源 B</b><small>站内行为</small></div></div><div class="down">↓</div>
+      <div class="card"><i>03</i><div><b>来源 C</b><small>订单系统</small></div></div><div class="down">↓</div>
+      <div class="sum">同一单，只算一次</div>
+    </div>
+    <div class="win"><div class="win-bar"><i></i><i></i><i></i><span>产品名称 · 汇总视图（截图替换区）</span></div>
+      <div class="dash"><div class="dash-nav"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="dash-main">
+          <div class="kpis"><div><small>总花费</small><b>$NN.Nk</b></div><div><small>归因结果</small><b class="up">NN.Nk</b></div><div><small>真实新增</small><b class="hot">NNN</b></div><div><small>偏差</small><b>NN%</b></div></div>
+          <div class="dash-chart"><svg viewBox="0 0 600 150" preserveAspectRatio="none"><path d="M0 120 C80 100 120 110 180 80 S300 60 360 70 480 30 600 40" fill="none" stroke="var(--accent)" stroke-width="2.4"/><path d="M0 130 C90 125 160 120 240 110 S420 100 600 96" fill="none" stroke="#B9B3AA" stroke-width="2" stroke-dasharray="5 5"/><path d="M0 120 C80 100 120 110 180 80 S300 60 360 70 480 30 600 40V150H0Z" fill="var(--accent)" opacity=".08"/></svg></div>
+          <div class="dash-rows"><div><span>渠道</span><span>花费</span><span>认领</span><span>实际</span></div><div><b>渠道一</b><span>$N.Nk</span><span>NNN</span><span>NN</span></div><div><b>渠道二</b><span>$N.Nk</span><span>NNN</span><span>NN</span></div><div><b>渠道三</b><span>$N.Nk</span><span>NN</span><span>NN</span></div></div>
+        </div></div></div>
+    <div class="ev-chain">一处看全渠道 <i>→</i> 拆分新老客 <i>→</i> 追踪转化路径 <i>→</i> 中文问数，即问即答</div>
+  </div>
+</section>
+
+<!-- ═══ K16 · A22 扇形飞轮 ═════════════════════════════════════════════ -->
+<section class="slide no-sub" id="fan-flywheel" data-name="扇形飞轮">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">持续迭代</p><h2 class="title">不是一次做出来，<em>是一轮轮转出来</em></h2></div>
+  <div class="body fan">
+    <svg viewBox="0 0 1304 566">
+      <path d="M606.0 329.2 L452.0 326.5 A200 200 0 0 1 488.2 215.3 L614.3 303.6 A46 46 0 0 0 606.0 329.2Z" fill="var(--accent-soft-2)"/><text x="523" y="298" text-anchor="middle" class="fan-n dk">01</text>
+      <path d="M615.3 302.3 L479.5 200.0 A216 216 0 0 1 581.7 125.8 L637.0 286.5 A46 46 0 0 0 615.3 302.3Z" fill="var(--accent-tint)"/><text x="566" y="221" text-anchor="middle" class="fan-n">02</text>
+      <path d="M638.6 286.0 L584.2 108.1 A232 232 0 0 1 719.8 108.1 L665.4 286.0 A46 46 0 0 0 638.6 286.0Z" fill="var(--accent-2)"/><text x="652" y="182" text-anchor="middle" class="fan-n">03</text>
+      <path d="M667.0 286.5 L732.7 95.5 A248 248 0 0 1 850.1 180.7 L688.7 302.3 A46 46 0 0 0 667.0 286.5Z" fill="var(--accent)"/><text x="751" y="204" text-anchor="middle" class="fan-n">04</text>
+      <path d="M689.7 303.6 L868.3 178.6 A264 264 0 0 1 916.0 325.4 L698.0 329.2 A46 46 0 0 0 689.7 303.6Z" fill="var(--accent-deep)"/><text x="823" y="285" text-anchor="middle" class="fan-n">05</text>
+      <circle cx="652" cy="330" r="30" fill="#fff" stroke="var(--accent-soft-2)" stroke-width="2"/>
+      <g transform="translate(640 318)" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></g>
+    </svg>
+    <div class="fan-lab l" style="left:410px;top:262px"><small>01 原料</small><b>把证据留下来</b><span>行为、订单，都进一个库</span></div>
+    <div class="fan-lab l" style="left:470px;top:110px"><small>02 循环</small><b>让市场来裁判</b><span>先试，投放验证，结果回写</span></div>
+    <div class="fan-lab" style="left:652px;top:40px"><small>03 判断与人</small><b>判断越用越准</b><span>成败都拿来学，人管关键决定</span></div>
+    <div class="fan-lab r" style="left:840px;top:110px"><small>04 形状</small><b>用一个公式管全局</b><span>生成、投放、反馈一条线</span></div>
+    <div class="fan-lab r" style="left:900px;top:262px"><small>05 价值</small><b>既赚结果也攒本事</b><span>结果当期兑现，资产留给未来</span></div>
+    <p class="fan-chain">先定义赢的标准 <i>→</i> 让结果回流 <i>→</i> 每一轮都成为下一轮的经验</p>
+    <div class="fan-keep">
+      <div class="card"><svg class="ico"><use href="#i-db"/></svg><b>每轮留下：数据</b><span>一句话说明沉淀了什么</span></div>
+      <div class="card"><svg class="ico"><use href="#i-target"/></svg><b>每轮留下：判断</b><span>一句话说明沉淀了什么</span></div>
+      <div class="card"><svg class="ico"><use href="#i-flow"/></svg><b>每轮留下：流程</b><span>一句话说明沉淀了什么</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K17 · A23 适配条件清单 ═════════════════════════════════════════ -->
+<section class="slide no-sub" id="fit-list" data-name="适配清单">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">适合谁</p><h2 class="title">这样的团队，<em>最适合先聊</em></h2></div>
+  <div class="body fit">
+    <div class="fit-lead"><h3>业务已经在跑，<br>想把账<em>算清楚</em>。</h3>
+      <p>一句话描述目标客户的状态：规模、阶段、正在遇到的问题，以及他们希望下一步做到什么。</p>
+      <div class="tags"><span>行业一</span><span>行业二</span><span>行业三</span></div>
+      <p class="note">不适合的情况也写一句：例如尚未起量、没有可追踪的数据来源。</p></div>
+    <ol class="fit-list">
+      <li class="card"><i>01</i><div><b>条件一：投入达到一定规模</b><span>写清门槛的判断方式</span></div><span class="ok">✓</span></li>
+      <li class="card"><i>02</i><div><b>条件二：至少有 N 个渠道</b><span>渠道越多，对账价值越大</span></div><span class="ok">✓</span></li>
+      <li class="card"><i>03</i><div><b>条件三：有自有的交易阵地</b><span>订单、用户、复购能被追踪</span></div><span class="ok">✓</span></li>
+      <li class="card"><i>04</i><div><b>条件四：有人做决策，缺人做分析</b><span>执行有人负责，看数缺人</span></div><span class="ok">✓</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ K18 · A24 上线节奏时间轴 ═══════════════════════════════════════ -->
+<section class="slide no-sub" id="timeline" data-name="上线节奏">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">落地路径</p><h2 class="title">第一周，<em>把账对上</em></h2></div>
+  <div class="body tlx">
+    <div class="tlx-steps">
+      <div class="hot"><b>当天</b><span>授权接入，先看最近周期</span></div>
+      <div class="hot"><b>第 1 周</b><span>工程师帮忙接入与对账</span></div>
+      <div><b>第 2–4 周</b><span>报表、复盘、新客路径打通</span></div>
+      <div><b>之后每天</b><span>AI 出建议，你确认执行</span></div>
+    </div>
+    <div class="card board">
+      <div class="board-col"><h5>数据来源</h5><div><b>渠道数据</b>投放与花费</div><div><b>行为数据</b>访问与互动</div><div><b>交易数据</b>订单与复购</div></div>
+      <div class="board-col"><h5>统一口径</h5><div><b>追踪参数</b>统一命名规则</div><div><b>去重规则</b>一单只算一次</div></div>
+      <div class="board-col hot"><h5>归因引擎</h5><div><b>路径还原</b>从触点到成交</div><div><b>新老拆分</b>识别真实新增</div><div><b>贡献计算</b>多触点分配</div></div>
+      <div class="board-col"><h5>行动建议</h5><div><b>预算调整</b>加 / 减 / 停</div><div><b>素材建议</b>保留与替换</div></div>
+      <div class="board-col"><h5>确认执行</h5><div><b>人工确认</b>关键决策留给人</div><div><b>结果回写</b>进入下一轮</div></div>
+      <div class="board-out"><h5>每周产出</h5><div>A1</div><div>A2</div><div>A3</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K19 · A25 品牌墙＋分布条 ═══════════════════════════════════════ -->
+<section class="slide" id="logo-wall" data-family="gov" data-name="品牌墙">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">合作品牌</p><h2 class="title">深度服务 <em>多个行业</em></h2><p class="sub">覆盖行业一、行业二、行业三等；logo 需取得授权后再替换占位</p></div>
+  <div class="body lw">
+    <div class="lw-bars"><div><small>市场分布</small><div class="seg"><span style="flex:6">市场 A · XX%</span><span style="flex:4">市场 B · XX%</span></div></div>
+      <div><small>客户结构</small><div class="seg b"><span style="flex:3">大客户 · XX%</span><span style="flex:7">中小客户 · XX%</span></div></div></div>
+    <div class="logos"><span>BRAND</span><span>品牌</span><span>Brand</span><span>B R A N D</span><span>品牌</span><span>Brand</span><span>BRAND</span><span>B R A N D</span><span>Brand</span><span>品牌</span><span>BRAND</span><span>Brand</span><span>品牌</span><span>BRAND</span><span>Brand</span><span>B R A N D</span><span>品牌</span><span>BRAND</span></div>
+    <div class="lw-notes"><div><b>市场 A · XX%</b><p>行业一 · 行业二 · 行业三 —— 代表客户类型</p></div><div><b>市场 B · XX%</b><p>渠道一 · 渠道二 —— 代表客户类型</p></div><div><b>客户结构 · XX% / XX%</b><p>大客户建灯塔做深度，中小客户规模化复制</p></div></div>
+  </div>
+</section>
+
+<!-- ═══ K20 · A26 看板 mock＋能力 ══════════════════════════════════════ -->
+<section class="slide" id="dashboard" data-family="gov" data-name="看板交付物">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">交付物</p><h2 class="title">管理看板：<em>一张图看全生意</em></h2><p class="sub">预算、流量、订单、竞品动态实时汇到一处；异常自动预警，建议一键下发</p></div>
+  <div class="body db">
+    <div class="win"><div class="win-bar"><i></i><i></i><i></i><span>产品名称 · 业务作战地图</span></div>
+      <div class="dash"><div class="dash-nav"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="dash-main">
+          <div class="kpis"><div><small>本月花费</small><b>$NNN.Nk</b></div><div><small>访问</small><b class="up">NN.Nk</b></div><div><small>订单</small><b>NNN</b></div><div><small>待办行动</small><b class="hot">N</b></div></div>
+          <div class="db-flow"><span><b>1</b>内容</span><i></i><span><b>2</b>投放</span><i></i><span><b>3</b>访问</span><i></i><span><b>4</b>转化</span><span style="margin-left:10px;color:var(--positive);font-weight:700">NN%</span></div>
+          <div class="db-split"><div class="dash-chart"><svg viewBox="0 0 400 160" preserveAspectRatio="none"><g fill="var(--accent-soft-2)"><rect x="10" y="80" width="26" height="80"/><rect x="50" y="60" width="26" height="100"/><rect x="90" y="96" width="26" height="64"/><rect x="130" y="40" width="26" height="120"/><rect x="170" y="70" width="26" height="90"/><rect x="210" y="30" width="26" height="130"/><rect x="250" y="50" width="26" height="110"/><rect x="290" y="20" width="26" height="140" fill="var(--accent)"/><rect x="330" y="44" width="26" height="116"/></g></svg></div>
+            <div class="db-alerts"><p><b>异常</b>某指标环比下降，建议检查</p><p><b>预警</b>某路径追踪缺失</p><p><b>建议</b>预算向表现最好的组合倾斜</p><p><b>建议</b>替换疲劳素材</p></div></div>
+        </div></div></div>
+    <div class="db-caps">
+      <div class="card"><i>01</i><b>全局驾驶舱</b><span>花费、访问、订单、待办一屏看清</span></div>
+      <div class="card"><i>02</i><b>异常自动预警</b><span>链路断点、突发舆情第一时间提示</span></div>
+      <div class="card"><i>03</i><b>行动一键下发</b><span>AI 给建议，人拍板，团队执行</span></div>
+      <div class="card"><i>04</i><b>竞品实时监控</b><span>对手动作与爆款内容自动追踪</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K21 · A27 深底案例大数字（case）══════════════════════════════════ -->
+<section class="slide dark-case" id="dark-case" data-family="case" data-name="深底案例">
+  <div class="case-photo"></div><div class="case-veil"></div>
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">标杆案例</p><h2 class="title">一句话写清客户目标，<br>和我们帮他达成的<em>关键变化</em></h2><p class="sub">三行以内说明背景、做法与周期；客户名称与数据仅在取得授权后填写，否则写成「某行业头部品牌」。</p></div>
+  <div class="case-kpis">
+    <div><b class="num"><em>提升</em>N<small>倍</small></b><p>指标一 · 口径说明</p></div>
+    <div><b class="num"><em>提升</em>XX%</b><p>指标二 · 口径说明</p></div>
+    <div><b class="num">XX%</b><p>指标三 · 口径说明</p></div>
+  </div>
+</section>
+
+<!-- ═══ K22 · A29 三层金字塔（redblack）═════════════════════════════════ -->
+<section class="slide" id="pyramid" data-family="redblack" data-name="三层金字塔">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">整合方法</p><h2 class="title">以决策者视角，<em>全方位把控传播渠道</em></h2><p class="sub">三层分别解决认知、信任和转化；每层右侧写清渠道与做法</p></div>
+  <div class="body pyr">
+    <div class="pyr-lead"><p class="kicker">FRAMEWORK</p><b>ABC</b><h4>整合营销<br>传播全渠道</h4><p>Integrated Framework</p></div>
+    <div class="pyr-rows">
+      <div class="pyr-row"><div class="pyr-step"><b>认知层</b><small>OWNED</small></div><div class="pyr-info"><div><span>渠道一</span><span>渠道二</span></div><p>一句话说明这一层的目标与做法，控制在两行内。</p></div></div>
+      <div class="pyr-row"><div class="pyr-step"><b>信任层</b><small>EARNED</small></div><div class="pyr-info"><div><span>渠道一</span><span>渠道二</span><span>渠道三</span><span>渠道四</span></div><p>一句话说明这一层的目标与做法，控制在两行内。</p></div></div>
+      <div class="pyr-row"><div class="pyr-step"><b>转化层</b><small>PAID</small></div><div class="pyr-info"><div><span>渠道一</span><span>渠道二</span><span>渠道三</span><span>渠道四</span><span>渠道五</span></div><p>一句话说明这一层的目标与做法，控制在两行内。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K23 · A30 漏斗＋内容矩阵（redblack）═════════════════════════════ -->
+<section class="slide" id="funnel" data-family="redblack" data-name="漏斗矩阵">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">阶段地图</p><h2 class="title">一张阶段地图，<em>统一内容矩阵与投放链路</em></h2><p class="sub">从左到右：用户阶段 → 内容类型 → 投放分支 → 可追踪结果</p></div>
+  <div class="body fm">
+    <div class="fm-col"><h5>1 · 用户阶段</h5><div class="fm-funnel"><div><b>认知</b><small>Awareness</small></div><div><b>兴趣</b><small>Interest</small></div><div><b>行动</b><small>Action</small></div><div><b>分享</b><small>Share</small></div></div></div>
+    <div class="fm-arrow">→</div>
+    <div class="fm-col"><h5>2 · 内容类型</h5><div class="fm-chips"><div><span class="hot">类型 A</span><span>类型 B</span></div><div><span>类型 C</span><span class="hot">类型 D</span><span>类型 E</span></div><div><span>类型 F</span><span>类型 G</span></div><div><span class="hot">类型 H</span></div></div></div>
+    <div class="fm-arrow">→</div>
+    <div class="fm-col"><h5>3 · 投放分支</h5><div class="fm-branch"><div class="card"><b>分支 A · 搜索投放</b><p>一句话说明适用阶段与目标</p><div class="tags"><span>关键词</span><span>品牌词</span><span>竞品词</span></div></div><div class="card"><b>分支 B · 信息流投放</b><p>一句话说明适用阶段与目标</p><div class="tags"><span>人群包</span><span>相似扩展</span><span>再营销</span></div></div></div></div>
+    <div class="fm-arrow">→</div>
+    <div class="fm-col"><h5>4 · 可追踪结果</h5><div class="fm-out"><div><svg class="ico"><use href="#i-search"/></svg>搜索量</div><div><svg class="ico"><use href="#i-play"/></svg>访问与停留</div><div><svg class="ico"><use href="#i-msg"/></svg>咨询线索</div><div><svg class="ico"><use href="#i-cart"/></svg>转化订单</div><div class="hot"><svg class="ico"><use href="#i-loop"/></svg>回流下一轮</div></div></div>
+  </div>
+</section>
+
+<!-- ═══ K24 · A31 案例：痛点·解法·结果（case）═══════════════════════════ -->
+<section class="slide" id="case-pmr" data-family="case" data-name="痛点解法结果">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">案例拆解</p><h2 class="title">某行业品牌：<em>把负面声量变成稳定入口</em></h2><p class="sub">案例页统一「左证据、右结论」：左边是真实界面截图，右边按痛点 / 解法 / 结果三段写</p></div>
+  <div class="body pmr">
+    <div class="pmr-boost"><b>✦ AI 提效 · 怎么帮</b><div><small>环节一</small>每日读取 NN 条反馈，替代人工</div><div><small>环节二</small>自动聚类主题，NN 小时内响应</div><div><small>环节三</small>关键词日级追踪，排出优先级</div></div>
+    <div class="phone"><div class="phone-in"><div class="pf"><i></i><div><b>账号名称</b><div class="bar" style="width:90px;margin-top:6px"></div></div></div><div class="bar"></div><div class="bar s"></div><div class="grid"><i></i><i></i><i></i><i></i></div></div></div>
+    <div class="pmr-rows">
+      <div class="card pmr-row"><div><b>01</b><small>痛点</small></div><div class="c" style="position:relative"><span class="chip" style="top:16px">优化前 · 指标 −N</span><p>一句话写清起点：问题是什么、影响了什么。</p><p style="color:var(--muted)">再用一句补充原因。</p></div></div>
+      <div class="card pmr-row"><div><b>02</b><small>解法</small></div><div class="c">
+        <p><svg class="ico"><use href="#i-shield"/></svg><span><b>动作一：</b>一句话写清做了什么、为什么</span></p>
+        <p><svg class="ico"><use href="#i-target"/></svg><span><b>动作二：</b>一句话写清做了什么、为什么</span></p>
+        <p><svg class="ico"><use href="#i-msg"/></svg><span><b>动作三：</b>一句话写清做了什么、为什么</span></p>
+        <p><svg class="ico"><use href="#i-search"/></svg><span><b>动作四：</b>一句话写清做了什么、为什么</span></p></div></div>
+      <div class="card pmr-row"><div><b>03</b><small>结果</small></div><div class="pmr-kpis"><div><b class="num">+XX%</b><small>指标一</small></div><div><b class="num">−N→NN</b><small>指标二</small></div><div><b class="num">N.Nx</b><small>指标三 · 对照</small></div><div><b class="num">Nx</b><small>指标四 · 对照</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K25 · A33 三层人群树（case）═════════════════════════════════════ -->
+<section class="slide no-sub" id="layer-tree" data-family="case" data-name="三层人群">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">人群拓展</p><h2 class="title">从一个触发点，<em>长出三层人群</em></h2></div>
+  <div class="body lt">
+    <svg viewBox="0 0 1304 536"><path d="M212 180C250 180 246 64 274 64"/><path d="M216 205H274"/><path d="M212 230C250 230 246 346 274 346"/></svg>
+    <div class="lt-root"><svg class="ico"><use href="#i-zapoff"/></svg><b>触发事件</b><small>一次中断<br>唤醒更多可能</small></div>
+    <div class="lt-rows">
+      <div class="lt-row"><i>01</i><div class="lt-lab"><b>第一层：价值层</b><span>从担忧到安心</span></div><div class="lt-imgs"><div class="ph" data-label="场景图"></div><div class="ph" data-label="场景图"></div><div class="card" style="padding:12px 16px;font-size:14px;color:var(--ink-2);line-height:1.8">· 人群描述一<br>· 人群描述二</div></div><div class="lt-need"><small>核心诉求</small><b>诉求一</b></div></div>
+      <div class="lt-row"><i>02</i><div class="lt-lab"><b>第二层：身份层</b><span>从应对到生活方式</span></div><div class="lt-imgs"><div class="ph" data-label="场景"></div><div class="ph" data-label="场景"></div><div class="ph" data-label="场景"></div><div class="ph" data-label="场景"></div></div><div class="lt-need"><small>核心诉求</small><b>诉求二</b></div></div>
+      <div class="lt-row"><i>03</i><div class="lt-lab"><b>第三层：场景层</b><span>从季节事件看见更多人</span></div><div class="lt-imgs"><div class="ph" data-label="季节场景"></div><div class="ph" data-label="季节场景"></div></div><div class="lt-need"><small>事件触发</small><b>A → B</b></div></div>
+    </div>
+    <div class="lt-loop"><h5>从真实关联出发，找到可持续增长的人群</h5>
+      <div><svg class="ico"><use href="#i-users"/></svg><p><b>小规模验证</b><span>找真实的人，讲真实的故事</span></p></div>
+      <div><svg class="ico"><use href="#i-chart"/></svg><p><b>数据回写</b><span>识别高相关人群与内容</span></p></div>
+      <div><svg class="ico"><use href="#i-play"/></svg><p><b>放量扩散</b><span>让好内容自然扩散</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ K26 · A34 系统架构图（case）══════════════════════════════════════ -->
+<section class="slide" id="architecture" data-family="case" data-name="系统架构">
+  <div class="brandmark"></div>
+  <div class="hd"><p class="eyebrow">系统总览</p><h2 class="title">一套作战系统：<em>在业务实战中衡量转型价值</em></h2><p class="sub">信号进来、中枢判断、动作出去，底座沉淀；每个模块写一句「输入 → 输出」</p></div>
+  <div class="body arch">
+    <div class="arch-goal"><b>✦ 北极星目标</b><span>一句话写清业务目标与衡量口径</span><span class="chip">目标 A</span><span class="chip" style="margin-left:0">目标 B</span></div>
+    <div class="arch-mid">
+      <div class="arch-box"><h5>输入：市场信号</h5><p>渠道动态 · 用户反馈 · 竞品动作</p><p>搜索趋势 · 内容表现 · 交易数据</p><p><span class="tag">实时</span> <span class="tag">日级</span> <span class="tag">周级</span></p><p style="margin-top:auto">外部 + 内部数据统一进入</p></div>
+      <div class="arch-box arch-core"><h5>中枢：判断与编排</h5>
+        <div class="arch-mods"><div><b>模块一</b>洞察分析</div><div><b>模块二</b>策略生成</div><div><b>模块三</b>内容生产</div><div><b>模块四</b>投放执行</div><div><b>模块五</b>效果归因</div><div><b>模块六</b>复盘沉淀</div></div></div>
+      <div class="arch-box"><h5>输出：业务动作</h5><p>预算分配 · 内容排期 · 渠道选择</p><p>人群定向 · 素材替换 · 节奏调整</p><p><span class="tag">建议</span> <span class="tag">执行</span> <span class="tag">回写</span></p><p style="margin-top:auto">关键决策留给人确认</p></div>
+    </div>
+    <div class="arch-base"><b>AI 协作底座</b>· 多个专职智能体分工协作，判断被结构化记录，越用越准</div>
+    <div class="arch-prod"><div><b>产品一</b>前端应用 · 一句说明</div><div><b>知识库 · 判断库 · 素材库</b>可复用的组织资产</div><div><b>产品二</b>前端应用 · 一句说明</div></div>
+  </div>
+</section>
+
+<!-- ═══ K27 · A36 暗场分步（dark，含 data-step 示例）════════════════════ -->
+<section class="slide dark-steps" id="dark-steps" data-family="dark" data-name="暗场分步">
+  <div class="dark-bg"></div>
+  <div class="brandmark"></div>
+  <p class="eyebrow">HOW · FROM PROBLEM TO PROTOTYPE</p>
+  <div class="ds-nav"><span class="on">出题<small>DEFINE</small></span><span data-step="1">解题<small>BUILD</small></span><span data-step="2">共创<small>CO-CREATE</small></span><span data-step="3">路演<small>DEMO</small></span></div>
+  <div class="ds-text"><p class="kicker">STEP 01 / DEFINE</p><h3>把业务卡点，<br>讲清楚。</h3><p>一起讲清现状、目标和成功标准，把题目磨成可以动手验证的需求。</p>
+    <div class="stage"><small>这一阶段</small><b>共同确认题目与交付物</b></div></div>
+  <div class="ds-photo"><i>● REC</i></div>
+  <p class="ds-cap">现场 · 一句图注说明照片里正在发生什么</p>
+</section>
+
+<!-- ═══ K28 · A38 收口：联系方式＋二维码 ════════════════════════════════ -->
+<section class="slide closing" id="closing" data-name="收口">
+  <div class="cover-glow"></div>
+  <div class="brandmark"></div>
+  <div class="cl-stack"><h2>一句品牌口号</h2><p>一句收口主张，回到开场的问题</p><hr></div>
+  <div class="cl-contact">
+    <ul><li><i><svg class="ico"><use href="#i-globe"/></svg></i><div><small>官网</small><b>www.example.com</b></div></li>
+      <li><i><svg class="ico"><use href="#i-box"/></svg></i><div><small>产品</small><b>product.example.com</b></div></li>
+      <li><i><svg class="ico"><use href="#i-mail"/></svg></i><div><small>联系</small><b>hello@example.com</b></div></li></ul>
+    <div class="qr"><div></div></div>
+  </div>
+  <p class="cl-foot">扫码添加 · 联系人姓名 · 职务</p>
+</section>
+
+</main>
+<script src="js/deck.js"></script>
+</body>
+</html>

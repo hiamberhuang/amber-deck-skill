@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>01 中文标题：均衡断行 + 词组不拆</title>
+<style>
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:8px}
+.tag{font-size:14px;color:var(--muted);margin-bottom:18px}
+.box{width:560px;padding-top:22px;border-top:1px solid var(--line)}
+.h{font-size:45px;font-weight:600;line-height:1.24;letter-spacing:-.6px}
+/* 规则 1：标题一律 balance（Chromium 只平衡 ≤6 行的块） */
+.good .h{text-wrap:balance}
+/* 规则 2：语义词组包 nowrap，浏览器只能在词组之间断 */
+.nb{white-space:nowrap}
+.p{margin-top:22px;font-size:19px;line-height:1.6;color:var(--muted)}
+.good .p{text-wrap:pretty}
+</style></head><body><div class="slide" style="padding-top:70px">
+<div class="cols">
+ <div class="bad"><div class="tag">默认断行：末行只剩两个字，词被拆开</div><div class="box">
+  <div class="h">线索从进来到成交，中间每一步都有人接住，不再靠人盯</div>
+  <div class="p">过去一条线索要转三次手，平均响应时间超过四个小时，现在缩短到四分钟。</div></div></div>
+ <div class="good"><div class="tag">意群包 nowrap + balance：每行是一个完整的意思，末行不落单</div><div class="box">
+  <div class="h"><span class="nb">线索从进来到成交，</span><span class="nb">中间每一步都有人接住，</span><span class="nb">不再靠人盯</span></div>
+  <div class="p">过去一条线索要转三次手，<span class="nb">平均响应时间</span>超过四个小时，<span class="nb">现在缩短到</span><span class="nb">四分钟。</span></div></div></div>
+</div>
+<div class="note" data-lint-skip>01 · 标题按意群断行：每个意群包 .nb，再加 text-wrap:balance；正文 text-wrap:pretty（对中文孤字不可靠，见 02）</div>
+</div></body></html>

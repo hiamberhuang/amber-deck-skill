@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>19 标点：行首悬挂与连续标点挤压</title>
+<style>
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:8px}
+.tag{font-size:14px;color:var(--muted);margin-bottom:14px}
+.box{border-left:1px solid var(--accent);padding:6px 0 6px 0;margin-bottom:64px}
+.h{font-size:66px;font-weight:600;line-height:1.28;letter-spacing:-.6px}
+.q{font-size:31px;line-height:1.65;color:var(--ink-2)}
+/* 1 行首开引号/书名号：左侧有半个字的空白，视觉上比下一行缩进。向左拉回 .5em，让笔画对齐左边线 */
+.hang{margin-left:-.5em}
+/* 2 连续标点（。」 ，「 ）、）：前一个标点收掉右半边空白。PingFang / 思源有 halt 特性；微软雅黑没有，只能用负 margin */
+.sq{margin-right:-.5em}
+/* 3 数字和单位、数字和符号永不拆行 */
+.nb{white-space:nowrap}
+/* Chrome 123+ 默认会自动挤压连续标点；手动处理的节点要关掉，避免挤两次 */
+.manual{text-spacing-trim:space-all}
+</style></head><body><div class="slide" style="padding-top:84px">
+<div class="cols">
+ <div><div class="tag">未处理：红线是版心左边线，引号让第一行缩了半个字；「。」后面空出一大块</div>
+  <div class="box manual"><div class="h">「线索不过夜」<br>是这套机制的底线</div></div>
+  <div class="box manual"><div class="q">销售主管说：「以前靠吼。」（现在靠规则。）首次响应从 4 小时降到 4 分钟，提升 98%。</div></div></div>
+ <div><div class="tag">处理后：开引号悬挂出版心；连续标点挤掉半个字；数字与单位不拆</div>
+  <div class="box manual"><div class="h"><span class="hang">「</span>线索不过夜」<br>是这套机制的底线</div></div>
+  <div class="box manual"><div class="q">销售主管说：「以前靠吼<span class="sq">。</span><span class="sq">」</span>（现在靠规则<span class="sq">。</span>）首次响应从 <span class="nb">4 小时</span>降到 <span class="nb">4 分钟</span>，提升 <span class="nb">98%</span>。</div></div></div>
+</div>
+<div class="note" data-lint-skip>19 · 标题行首遇到「《（“ 一律悬挂 −0.5em；连续标点由 Chrome 123+ 的 text-spacing-trim 自动处理（需字体带 halt），这里为演示手动关掉后对比</div>
+</div></body></html>

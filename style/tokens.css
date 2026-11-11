@@ -1,0 +1,92 @@
+/* Amber deck tokens · 实测于 10 份渲染原稿（见 tokens.json）
+   数值已换算到 1440×810 画布；原生 1280 值 ×1.125，1600 值 ×0.9。
+   用法：<html data-family="warm|redblack|dark|gov|case">；默认 warm。 */
+
+:root{
+  /* canvas */
+  --canvas-w:1440px; --canvas-h:810px;
+  --pad-x:68px;              /* 60 @1280 */
+  --eyebrow-top:51px;        /* 45 @1280 */
+  --title-top:94px;          /* 84 @1280 */
+  --content-top:216px;       /* 192 @1280：标题+副标题之后 */
+  --content-bottom:752px;    /* 页脚上沿；内容下沿应贴近这里 */
+  --logo-top:44px; --logo-h:25px;
+
+  /* type stack */
+  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,system-ui,"Segoe UI",sans-serif;
+  --font-latin-label:Arial,"Helvetica Neue",sans-serif;
+
+  /* type scale (measured mode → 1440) */
+  --fs-cover:99px;    --fw-cover:900; --lh-cover:1.05;
+  --fs-title:45px;    --fw-title:900; --lh-title:1.24; --ls-title:-1.1px;
+  --fs-eyebrow:16px;  --fw-eyebrow:700; --ls-eyebrow:.3px;
+  --fs-sub:19px;      --fw-sub:400;  --lh-sub:1.6;
+  --fs-card-title:19px; --fw-card-title:800;
+  --fs-body:16px;     --lh-body:1.6;
+  --fs-body-sm:14.5px;
+  --fs-caption:12.5px; --lh-caption:1.5;
+  --fs-kpi:48px;      --fw-kpi:800;
+
+  /* color · warm-white roadshow (usage share of text chars in parentheses) */
+  --bg:#F8F7F5;
+  --ink:#0E0F13;      /* 19% */
+  --ink-2:#33363E;    /* 14% */
+  --muted:#636874;    /* 25% — most used text color */
+  --faint:#9AA0AB;    /* 7% */
+  --accent:#E4003A;   /* 12% text; 89 fills; 576 svg */
+  --accent-deep:#C50033;
+  --accent-2:#F04C74;
+  --eyebrow:#E9718E;
+  --accent-soft:#FDF1F4;   /* 293 fills — second most used surface */
+  --accent-soft-2:#FBE4EA;
+  --card:#FFFFFF;          /* 295 fills */
+  --soft:#F2F0EC;
+  --line:#E7E4DE; --line-2:#F0EDE8;
+  --warm-gray:#8F8983;
+  --data-1:#8FAAA5; --data-2:#B5CDDB; --data-3:#AEBED3; --data-4:#E4C49E; --data-5:#C7D5AE; --data-6:#DBB5B0; --data-7:#BDB5D2;
+  --positive:#2F8F5B; --positive-soft:#E6F2EA;
+  --ring-1:#B8860B; --ring-2:#2563C7; --ring-3:#188A63;  /* 实测：快消通案 Loop 三环 */
+
+  /* shape */
+  --r-card:14px; --r-chip:3px; --r-pill:999px;
+  --bw:1px; --bw-strong:3px; --stroke:1.8px; --dash:4 4;
+  --sh:0 2px 10px rgba(20,18,22,.06);
+  --sh-1:0 1px 2px rgba(20,18,22,.03),0 6px 16px rgba(20,18,22,.055);
+  --sh-2:0 2px 4px rgba(20,18,22,.04),0 14px 34px rgba(20,18,22,.09);
+  --sh-accent:0 2px 6px rgba(228,0,58,.10),0 14px 30px rgba(228,0,58,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+/* red-black · 互联网行业 */
+[data-family="redblack"]{
+  --fs-title:40.5px; --fw-title:700; --lh-title:1.22; --ls-title:-.6px;
+  --title-top:111px; --fs-sub:16px; --fs-cover:58px; --fw-cover:700;
+  --fs-body:14.5px; --fs-body-sm:13px;
+  --r-card:13px;
+}
+
+/* dark stage · 活动与现场大屏（原生 1600×900） */
+[data-family="dark"]{
+  --bg:#121113; --card:#1B191C; --soft:#201D21;
+  --ink:#F5F2EE; --ink-2:#E4D8DE; --muted:#BCB4B7; --faint:#7F6A75;
+  --accent:#DC0344; --eyebrow:#DC0344; --accent-soft:rgba(220,3,68,.12);
+  --line:rgba(161,75,94,.6); --line-2:rgba(255,255,255,.08);
+  --pad-x:79px;
+  --fs-title:57px; --ls-title:-2.6px; --lh-title:1.2;
+  --fs-eyebrow:16px; --fw-eyebrow:600; --ls-eyebrow:3.2px;
+  --fs-sub:25px; --fs-body:19px; --fs-body-sm:16px; --fs-caption:14px;
+  --font-sans:"Source Han Sans SC","Noto Sans SC","PingFang SC",sans-serif;
+}
+
+/* gov · 政府 / 产业项目 */
+[data-family="gov"]{
+  --r-chip:3px; --r-card:11px;
+  --fw-sub:500;
+  --positive:#2F8F5B; --positive-soft:#7FB99C;
+}
+
+/* case evidence · 深底门面页 + 浅底证据页 */
+[data-family="case"]{
+  --dark-bg:#08090C; --on-dark:#FFFFFF; --on-dark-80:rgba(255,255,255,.80); --on-dark-72:rgba(255,255,255,.72);
+  --r-chip:2px; --r-card:15px;
+}

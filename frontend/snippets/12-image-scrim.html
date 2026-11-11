@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>12 图上压字：定向暗幕</title>
+<style>
+.slide{padding:0;color:#fff}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%   /* 主体（帐篷）落在右下三分点，文字在左下，互不遮挡 */}
+/* 暗幕只盖文字所在的角：以左下角为圆心向外渐隐，主体那一侧保持原片亮度。
+   文字底下最暗处 ≥ .66，白字对比度 ≥ 4.5:1；四段色标避免出现一条生硬的灰带 */
+.scrim{position:absolute;inset:0;background:
+  radial-gradient(115% 95% at 0% 100%,rgba(10,10,14,.90) 0%,rgba(10,10,14,.66) 32%,rgba(10,10,14,.24) 56%,rgba(10,10,14,0) 74%)}
+.txt{position:absolute;left:68px;bottom:64px;max-width:760px}
+.txt h1{font-size:58px;font-weight:600;line-height:1.2;letter-spacing:-.8px;color:#fff;max-width:none}
+.txt p{margin-top:16px;font-size:21px;line-height:1.6;color:rgba(255,255,255,.9)}
+.credit{position:absolute;right:68px;bottom:28px;font-size:12.5px;color:rgba(255,255,255,.75)}
+</style></head><body><div class="slide">
+<img class="bg" src="assets/scene.svg" alt="">
+<div class="scrim"></div>
+<div class="txt"><h1><span style="white-space:nowrap">把营地搬到</span><span style="white-space:nowrap">离线索最近的地方</span></h1><p>华东三城驻点两周，现场拿到四十七条有效线索。</p></div>
+<div class="credit">示意图 · 自绘</div>
+</div></body></html>

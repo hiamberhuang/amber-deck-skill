@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>13 流程：连接线量出来再画</title>
+<style>
+.flow{position:relative;margin-top:72px;display:grid;grid-template-columns:repeat(4,1fr);column-gap:64px;row-gap:56px}
+.node{position:relative;z-index:1;background:var(--card);border-radius:var(--r-card);box-shadow:0 0 0 1px var(--line),var(--sh-1);padding:28px 28px 30px;min-height:214px}
+.node .n{font-family:var(--font-num);font-size:15px;color:var(--muted)}
+.node .t{margin-top:14px;font-size:27px;font-weight:600;line-height:1.3}
+.node p{margin-top:10px;font-size:17px;line-height:1.55;color:var(--muted)}
+.node.hot{background:var(--accent);box-shadow:0 2px 6px rgba(228,0,58,.10),0 14px 30px rgba(228,0,58,.16);color:#fff}
+.node.hot .n,.node.hot p{color:#fff}
+.node.side{grid-column:3;background:var(--soft);box-shadow:none;border:1px dashed #CFCAC2;min-height:0;padding:20px 28px}
+.node.side .t{font-size:20px;font-weight:500;margin-top:0} .node.side p{margin-top:4px}
+#wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">一条线索的四步，只有一处会分叉</h1>
+<div class="flow" id="flow">
+ <div class="node" data-id="a"><div class="n">1</div><div class="t">进池</div><p>私信、表单、名片统一进线索池，自动去重。</p></div>
+ <div class="node" data-id="b"><div class="n">2</div><div class="t">分配</div><p>按区域、行业和负载推给一个具体的人。</p></div>
+ <div class="node hot" data-id="c"><div class="n">3</div><div class="t">首次响应</div><p>目标四分钟内，手机上直接回复。</p></div>
+ <div class="node" data-id="d"><div class="n">4</div><div class="t">跟进到成交</div><p>每次沟通留痕，数据回流给投放。</p></div>
+ <div class="node side" data-id="e"><div class="t">超时升级</div><p>15 分钟无人接，转给主管重新分配。</p></div>
+ <svg id="wires" aria-hidden="true"></svg>
+</div>
+<div class="note" data-lint-skip>13 · 节点是 HTML（文字可换行、可选中），连线是 SVG；端点由 getBoundingClientRect 量出，只走水平 / 垂直，箭头尖停在距节点 6px 处</div>
+</div>
+<script src="no-orphan.js"></script>
+<script>
+fixOrphans(document,{selector:".node p",min:3,keep:4});
+/* 连线规则：1. 只走正交线；2. 起点贴源节点边缘，箭头尖距目标 gap=6px；3. 主线实线 1.8px，支线虚线；
+   4. 箭头是独立三角形，线段缩短一个箭头长；5. 画布缩放时坐标除以缩放比（这里用 offset 系，天然不受 transform 影响）。 */
+(function(){
+  var flow=document.getElementById('flow'),svg=document.getElementById('wires'),NS='http://www.w3.org/2000/svg',gap=6,head=10;
+  function box(id){var e=flow.querySelector('[data-id="'+id+'"]');return {l:e.offsetLeft,t:e.offsetTop,r:e.offsetLeft+e.offsetWidth,b:e.offsetTop+e.offsetHeight,cx:e.offsetLeft+e.offsetWidth/2,cy:e.offsetTop+e.offsetHeight/2};}
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);svg.appendChild(e);}
+  function arrow(pts,col,dash){ // pts: 折线点；最后一段方向决定箭头朝向
+    var n=pts.length,a=pts[n-2],b=pts[n-1],dx=Math.sign(b[0]-a[0]),dy=Math.sign(b[1]-a[1]);
+    var tip=[b[0]-dx*gap,b[1]-dy*gap],base=[tip[0]-dx*head,tip[1]-dy*head];
+    var d='M'+pts.slice(0,n-1).join(' L')+' L'+base;
+    el('path',{d:d,fill:'none',stroke:col,'stroke-width':1.8,'stroke-dasharray':dash||''});
+    el('path',{d:'M'+tip+' L'+[base[0]-dy*head*.5-0,base[1]-dx*head*.5]+' L'+[base[0]+dy*head*.5,base[1]+dx*head*.5]+'Z',fill:col});
+  }
+  var a=box('a'),b=box('b'),c=box('c'),d=box('d'),e=box('e'),y=a.cy;
+  arrow([[a.r,y],[b.l,y]],'#33363E'); arrow([[b.r,y],[c.l,y]],'#33363E'); arrow([[c.r,y],[d.l,y]],'#33363E');
+  arrow([[c.cx,c.b],[c.cx,e.t]],'#9AA0AB','4 4');                                   // 3 → 超时升级
+  arrow([[e.l,e.cy],[b.cx,e.cy],[b.cx,b.b]],'#9AA0AB','4 4');                        // 升级 → 回到分配
+})();
+</script></body></html>

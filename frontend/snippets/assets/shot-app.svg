@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 393 852" width="393" height="852" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+  <rect width="393" height="852" fill="#FBFAF8"/>
+  <text x="24" y="92" font-size="28" font-weight="600" fill="#0E0F13">今日线索</text>
+  <text x="24" y="118" font-size="13" fill="#9AA0AB">11月10日 · 共 37 条</text>
+  <rect x="24" y="140" width="345" height="120" rx="18" fill="#E4003A"/>
+  <text x="44" y="176" font-size="13" fill="#fff" opacity=".85">待你跟进</text><text x="44" y="230" font-size="46" font-weight="600" fill="#fff">12</text>
+  <text x="250" y="230" font-size="13" fill="#fff" opacity=".85">3 条即将超时</text>
+  <g font-size="15" fill="#0E0F13">
+    <rect x="24" y="282" width="345" height="84" rx="16" fill="#fff" stroke="#E7E4DE"/><circle cx="60" cy="324" r="18" fill="#FBE4EA"/><text x="92" y="318" font-weight="600">连锁餐饮 · 王女士</text><text x="92" y="342" font-size="13" fill="#636874">想了解门店线索分配方案</text>
+    <rect x="24" y="378" width="345" height="84" rx="16" fill="#fff" stroke="#E7E4DE"/><circle cx="60" cy="420" r="18" fill="#F2F0EC"/><text x="92" y="414" font-weight="600">户外品牌 · 陈先生</text><text x="92" y="438" font-size="13" fill="#636874">已看过报价，等回电</text>
+    <rect x="24" y="474" width="345" height="84" rx="16" fill="#fff" stroke="#E7E4DE"/><circle cx="60" cy="516" r="18" fill="#F2F0EC"/><text x="92" y="510" font-weight="600">教育机构 · 李老师</text><text x="92" y="534" font-size="13" fill="#636874">展会名片，尚未联系</text>
+    <rect x="24" y="570" width="345" height="84" rx="16" fill="#fff" stroke="#E7E4DE"/><circle cx="60" cy="612" r="18" fill="#F2F0EC"/><text x="92" y="606" font-weight="600">家居品牌 · 赵总</text><text x="92" y="630" font-size="13" fill="#636874">转介绍，约周四演示</text>
+  </g>
+  <rect x="0" y="770" width="393" height="82" fill="#fff"/><path d="M0 770H393" stroke="#E7E4DE"/>
+  <g font-size="11" fill="#9AA0AB" text-anchor="middle"><text x="66" y="812" fill="#E4003A" font-weight="600">线索</text><text x="196" y="812">跟进</text><text x="327" y="812">我的</text></g>
+</svg>

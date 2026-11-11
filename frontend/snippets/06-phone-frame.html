@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>06 手机截图装框</title>
+<style>
+.wrap{display:grid;grid-template-columns:1fr 330px 330px;gap:44px;align-items:center;height:100%}
+/* 机身：外圆角 = 屏幕圆角 + 边框厚度（同心圆角）。393×852 的截图按 0.72 缩放 */
+.phone{--s:.72;--bezel:9px;--r:calc(47px*var(--s));width:calc(393px*var(--s) + 2*var(--bezel));padding:var(--bezel);border-radius:calc(var(--r) + var(--bezel));
+  background:#1B1A1E;box-shadow:0 0 0 1px rgba(0,0,0,.5),0 2px 4px rgba(20,18,22,.06),0 30px 60px rgba(20,18,22,.20);position:relative;justify-self:center}
+.phone img{display:block;width:100%;aspect-ratio:393/852;border-radius:var(--r);object-fit:cover;object-position:top}
+.phone::before{content:"";position:absolute;left:50%;top:calc(var(--bezel) + 9px);width:calc(110px*var(--s));height:calc(30px*var(--s));margin-left:calc(-55px*var(--s));border-radius:99px;background:#0B0B0D;z-index:1}
+.phone.b{transform:translateY(34px)}
+h1{font-size:40px}
+</style></head><body><div class="slide" style="padding-top:40px;padding-bottom:40px"><div class="wrap">
+ <div><h1><span style="white-space:nowrap">销售在手机上，</span><span style="white-space:nowrap">四分钟内接住线索</span></h1><p class="sub">推送直达个人，超时自动升级，不需要打开电脑。</p></div>
+ <div class="phone"><img src="assets/shot-app.svg" alt="今日线索列表"></div>
+ <div class="phone b"><img src="assets/shot-app.svg" alt="今日线索列表" style="object-position:0 0"></div>
+</div></div></body></html>

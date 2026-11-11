@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>齿轮闭环</title>
+<!-- 07-loop-gear · 来源：Amber signature（路演 Loop 齿轮页：咬合齿轮 SVG 加环绕标签与结论句；此处齿形由代码生成，重新实现） · 原创实现，无第三方代码。GSAP 3.13.0（GreenSock Standard License）由固定版本 CDN 引入；离线或加载失败时显示静态终态。 -->
+<!-- 参数：?end 直接静态终态（打印/截图）· ?rm 模拟减少动效 · ?clean 隐藏提示条 -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<style>
+:root{--bg:#F8F7F5;--fg:#0E0F13;--accent:#E4003A;--muted:#636874;--faint:#9AA0AB;--line:#E2DED7;--card:#FFFFFF;--soft:#FDF1F4;--page:#E9E7E3;--ease:cubic-bezier(.16,1,.3,1)}
+body.dark{--bg:#121113;--fg:#F5F2EE;--accent:#FF3369;--muted:#A9A2A6;--faint:#6F6970;--line:#2C292E;--card:#1C1A1E;--soft:#2A1520;--page:#060607}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--page);color:var(--fg);font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1440px;height:810px;transform-origin:0 0;overflow:hidden;background:var(--bg);color:var(--fg)}
+h1,h2,h3,p{margin:0}
+.pad{position:absolute;inset:64px 88px 72px}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.h1{font-size:76px;line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.h2{font-size:46px;line-height:1.22;font-weight:800;letter-spacing:-.015em}
+.h3{font-size:26px;line-height:1.35;font-weight:750}
+.lead{font-size:21px;line-height:1.7;color:var(--muted)}
+.small{font-size:14px;color:var(--muted)}
+.accent{color:var(--accent)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.note{position:absolute;right:88px;bottom:26px;font-size:12px;color:var(--faint)}
+.fx-hud{position:absolute;left:24px;bottom:18px;z-index:999;display:flex;gap:14px;align-items:center;font-size:12px;color:var(--faint);pointer-events:none;letter-spacing:.02em}
+.fx-hud b{font-weight:600;color:var(--muted)}
+.fx-hud .fx-step{font-variant-numeric:tabular-nums}
+.fx-clean .fx-hud{display:none}
+@media print{html,body{overflow:visible;background:var(--bg)}#stage{position:relative;transform:none!important}.fx-hud{display:none}}
+
+/* ---- effect ---- */
+.head{position:absolute;left:88px;top:60px}
+.head .h2{margin-top:12px;font-size:40px}
+svg.gears{position:absolute;left:0;top:0;width:1440px;height:810px;overflow:visible}
+.gear path{fill:#fff;stroke:#0E0F13;stroke-width:2}
+.gear.a path{fill:var(--soft);stroke:var(--accent)}
+.gear .hub{fill:#fff;stroke:currentColor;stroke-width:2}
+.gear text{font-size:30px;font-weight:800;text-anchor:middle;dominant-baseline:central;fill:#0E0F13}
+.gear.a text{fill:var(--accent)}
+.gt{position:absolute;width:280px}
+.gt i{display:block;font-style:normal;font-size:13px;letter-spacing:.14em;font-weight:800;color:var(--accent)}
+.gt b{display:block;font-size:26px;margin-top:6px}
+.gt span{display:block;margin-top:6px;font-size:16px;line-height:1.6;color:var(--muted)}
+.arrow{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round}
+.concl{position:absolute;left:88px;right:88px;bottom:70px;text-align:center;font-size:24px;font-weight:700}
+.concl em{font-style:normal;color:var(--accent)}
+</style>
+</head>
+<body class="">
+<div id="stage" data-keys="→ / 空格 下一个环节 · ← 收回 · E 终态">
+<div class="head"><div class="eyebrow">Loop · 闭环机制</div><h2 class="h2">三个环节互相咬合，<span class="accent">一个转，全部转</span></h2></div>
+<svg class="gears" viewBox="0 0 1440 810" aria-hidden="true">
+  <g class="gear a" data-n="24"><path/><circle class="hub" r="34"/><text>A</text></g>
+  <g class="gear b" data-n="14"><path/><circle class="hub" r="22"/><text>B</text></g>
+  <g class="gear c" data-n="10"><path/><circle class="hub" r="16"/><text>C</text></g>
+  <path class="arrow" d=""/>
+</svg>
+<div class="gt" style="left:150px;top:520px"><i>01</i><b>环节 A</b><span>说明占位：这一环做什么。</span></div>
+<div class="gt" style="left:1010px;top:450px"><i>02</i><b>环节 B</b><span>说明占位：这一环如何被 A 带动。</span></div>
+<div class="gt" style="left:190px;top:250px;text-align:right"><i>03</i><b>环节 C</b><span>说明占位：结果如何回流到 A。</span></div>
+<div class="concl">定义标准 <em>→</em> 结果回流 <em>→</em> 每一轮更准（结论句占位）</div>
+</div>
+<script>
+/* 共享运行时：舞台缩放、步进、减少动效、静态终态。原创。 */
+window.FX=(function(){
+  var q=new URLSearchParams(location.search);
+  var RM=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||q.has('rm');
+  var END=q.has('end');
+  var G=window.gsap;
+  var stage=document.getElementById('stage');
+  if(q.has('clean'))document.body.classList.add('fx-clean');
+  function fit(){var s=Math.min(innerWidth/1440,innerHeight/810);stage.style.transform='translate('+(innerWidth-1440*s)/2+'px,'+(innerHeight-810*s)/2+'px) scale('+s+')';}
+  addEventListener('resize',fit);fit();
+  var api={RM:RM,END:END,G:G,stage:stage,ready:false,i:0,P:[1],tl:null,loops:[],
+    $:function(s,r){return (r||stage).querySelector(s)},
+    $$:function(s,r){return Array.prototype.slice.call((r||stage).querySelectorAll(s))}};
+  var hudStep=null,opts={};
+  function label(){if(hudStep)hudStep.textContent=api.P.length>1?(api.i+1)+' / '+api.P.length:(api.END||api.RM||!G?'终态':'');}
+  function go(i,instant){
+    if(!api.tl)return;
+    i=Math.max(0,Math.min(api.P.length-1,i));
+    var back=i<api.i; api.i=i;
+    var t=api.P[i];
+    if(instant||RM){api.tl.pause();api.tl.seek(t,false);}
+    else if(back){api.tl.tweenTo(t,{duration:Math.min(.6,Math.max(.25,Math.abs(api.tl.time()-t))),ease:'power2.inOut'});}
+    else api.tl.tweenTo(t);
+    if(opts.onStep)opts.onStep(i);
+    label();
+  }
+  api.go=function(i){go(i)};
+  api.hide=function(tl,t){tl.fromTo(t,{autoAlpha:0},{autoAlpha:0,duration:.001,immediateRender:true},0);return tl;};
+  api.next=function(){go(api.i+1)};
+  api.prev=function(){go(api.i-1)};
+  api.end=function(){api.loops.forEach(function(l){l.pause&&l.pause()});go(api.P.length-1,true);if(opts.staticEnd&&!api.tl)opts.staticEnd();};
+  api.restart=function(){if(!api.tl)return;api.tl.pause().seek(0,false);api.i=-1;go(0)};
+  api.state=function(){var t=api.tl;return {i:api.i,n:api.P.length,progress:t?t.progress():1,active:t?t.isActive():false,gsap:!!G,rm:RM,loops:api.loops.filter(function(l){return l.isActive&&l.isActive()}).length}};
+  api.setup=function(o){
+    opts=o||{};
+    var hud=document.createElement('div');hud.className='fx-hud';
+    hud.innerHTML='<b>'+document.title+'</b><span class="fx-step"></span><span>'+(stage.dataset.keys||'→ / 空格 下一步 · ← 回退 · E 终态 · R 重播')+'</span>';
+    stage.appendChild(hud);hudStep=hud.querySelector('.fx-step');
+    if(!G){stage.classList.add('fx-static');if(opts.staticEnd)opts.staticEnd();api.ready=true;label();return;}
+    G.defaults({ease:'power3.out',duration:.8});
+    var tl=opts.build(G);api.tl=tl;tl.pause();
+    var P=Object.keys(tl.labels).filter(function(k){return /^s\d+$/.test(k)}).map(function(k){return tl.labels[k]});
+    P.push(tl.duration());
+    P=P.sort(function(a,b){return a-b}).filter(function(t,k,a){return k===0||t-a[k-1]>1e-3});
+    api.P=P;
+    if(END||(RM&&P.length===1)){tl.progress(1,false);api.i=P.length-1;}
+    else if(RM){tl.seek(P[0],false);api.i=0;}
+    else {api.i=0;tl.tweenTo(P[0]);}
+    if(opts.onStep)opts.onStep(api.i);
+    if(opts.loop){var made=opts.loop(G)||[];api.loops=made;if(RM||END)made.forEach(function(l){l.pause()});}
+    label();api.ready=true;
+  };
+  var wheelLock=0;
+  addEventListener('wheel',function(e){var n=Date.now();if(n<wheelLock||Math.abs(e.deltaY)<8)return;wheelLock=n+700;e.deltaY>0?api.next():api.prev();},{passive:true});
+  addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(opts.keys&&opts.keys[e.key.toLowerCase()]){opts.keys[e.key.toLowerCase()](e);return;}
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].indexOf(e.key)>-1){e.preventDefault();api.next();}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();api.prev();}
+    else if(e.key==='End'||e.key.toLowerCase()==='e'){e.preventDefault();api.end();}
+    else if(e.key==='Home'||e.key.toLowerCase()==='r'){e.preventDefault();api.restart();}
+    else if(e.key.toLowerCase()==='h'){document.body.classList.toggle('fx-clean');}
+  });
+  stage.addEventListener('click',function(e){if(e.target.closest('button,a,input,[data-noclick]'))return;api.next();});
+  return api;
+})();
+</script>
+<script>
+const M=9,CX=640,CY=470,step=n=>2*Math.PI/n;
+function gearPath(N){const r=M*N/2,ro=r+M,ri=r-1.25*M,s=step(N);let d='';for(let k=0;k<N;k++){const a=k*s;[[ri,a-s*.5],[ri,a-s*.28],[ro,a-s*.14],[ro,a+s*.14],[ri,a+s*.28]].forEach(([rr,aa],j)=>{d+=(k||j?'L':'M')+(rr*Math.cos(aa)).toFixed(1)+','+(rr*Math.sin(aa)).toFixed(1)});}return d+'Z';}
+const G=FX.$$('.gear'),NA=24,NB=14,NC=10,rA=M*NA/2,rB=M*NB/2,rC=M*NC/2;
+const alphaB=0,alphaC=-8*step(NA);
+const pos=[[CX,CY],[CX+(rA+rB)*Math.cos(alphaB),CY+(rA+rB)*Math.sin(alphaB)],[CX+(rA+rC)*Math.cos(alphaC),CY+(rA+rC)*Math.sin(alphaC)]];
+const ph=[0,alphaB+Math.PI-step(NB)/2,alphaC+Math.PI-step(NC)/2];
+G.forEach((g,k)=>g.querySelector('path').setAttribute('d',gearPath(+g.dataset.n)));
+const deg=r=>r*180/Math.PI;
+function setAngles(aDeg){const a=aDeg*Math.PI/180;const ang=[a,ph[1]-a*NA/NB,ph[2]-a*NA/NC];G.forEach((g,k)=>{g.querySelector('path').setAttribute('transform','rotate('+deg(ang[k]).toFixed(3)+')');g.setAttribute('transform','translate('+pos[k][0].toFixed(1)+','+pos[k][1].toFixed(1)+')');});}
+setAngles(0);
+const R0=rA+M+26,arc=FX.$('.arrow');
+const p=(t)=>[CX+R0*Math.cos(t),CY+R0*Math.sin(t)];
+const [x1,y1]=p(Math.PI*.62),[x2,y2]=p(Math.PI*.98);
+arc.setAttribute('d',`M${x1.toFixed(1)},${y1.toFixed(1)} A${R0},${R0} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)} m-10,14 l10,-14 l12,10`);
+const spin={a:0};
+FX.setup({
+  build(g){
+    const tl=g.timeline();
+    tl.from('.head > *',{autoAlpha:0,y:30,stagger:.1,duration:.9,ease:'expo.out'},0);
+    G.forEach((el,k)=>tl.from(el.querySelector('path'),{opacity:0,scale:.6,transformOrigin:'0 0',duration:.9,ease:'back.out(1.6)'},.2+k*.12));
+    tl.from(FX.$$('.gear text, .gear .hub'),{opacity:0,duration:.5},.7);
+    const L=arc.getTotalLength();
+    tl.fromTo(arc,{strokeDasharray:L,strokeDashoffset:L},{strokeDashoffset:0,duration:1,ease:'power2.inOut'},.9);
+    FX.$$('.gt').forEach((el,k)=>{tl.addLabel('s'+(k+1));tl.from(el,{autoAlpha:0,y:20,duration:.7,ease:'expo.out'},'s'+(k+1));});
+    tl.addLabel('s4');
+    tl.from('.concl',{autoAlpha:0,y:20,duration:.8},'s4');
+    return tl;
+  },
+  loop(g){return [g.to(spin,{a:360,duration:30,ease:'none',repeat:-1,onUpdate:()=>setAngles(spin.a)})]}
+});
+</script>
+</body>
+</html>

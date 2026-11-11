@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>15 条形图：直接标注，只亮一根</title>
+<style>
+.wrap{display:grid;grid-template-columns:400px 1fr;gap:56px;align-items:center;height:100%}
+.chart{display:grid;grid-template-columns:auto 1fr;column-gap:20px;row-gap:0;align-items:center}
+.chart .l{font-size:18px;color:var(--ink-2);text-align:right;height:66px;display:flex;align-items:center;justify-content:flex-end}
+.chart .b{height:66px;display:flex;align-items:center;gap:14px;border-left:1px solid #CFCAC2;font-family:var(--font-num);font-size:19px;color:var(--muted)}
+.chart .b i{display:block;height:30px;background:#D5D1CA;border-radius:0 3px 3px 0}
+.chart .hot.l{color:var(--ink);font-weight:600} .chart .hot.b{color:var(--accent);font-weight:700;font-size:26px} .chart .hot.b i{background:var(--accent)}
+.src{grid-column:2;margin-top:18px;font-size:12.5px;color:var(--muted)}
+h1{font-size:40px}
+</style></head><body><div class="slide" style="padding-top:50px;padding-bottom:50px"><div class="wrap">
+ <div><h1>小红书带来的线索，比其他渠道加起来还多</h1><p class="sub">本周 1,284 条新增线索的来源分布。</p></div>
+ <div class="chart" id="c"></div>
+</div></div>
+<script>
+/* 规则：按数值降序（时间序列除外）；条从零开始；数值标在条尾，不要坐标轴刻度和网格；
+   全图只有一根用强调色，就是标题里说的那根；条高 : 间隙 ≈ 1 : 1.2。 */
+(function(){
+  var d=[['小红书',668],['官网表单',274],['展会',171],['转介绍',118],['其他',53]],max=d[0][1],c=document.getElementById('c'),h='';
+  d.forEach(function(x,i){var hot=i===0?' hot':'';
+    h+='<div class="l'+hot+'">'+x[0]+'</div><div class="b'+hot+'"><i style="width:'+(x[1]/max*78).toFixed(2)+'%"></i>'+x[1]+(i===0?'<span style="font:400 15px var(--font-sans);color:var(--muted)">条，占 52%</span>':'')+'</div>';});
+  c.innerHTML=h+'<div class="src">来源：线索工作台，11 月 3 日至 9 日</div>';
+})();
+</script><script src="keep-words.js"></script><script>keepWords(document.querySelector('h1'))</script></body></html>

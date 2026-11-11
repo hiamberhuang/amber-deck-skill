@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>25 二乘二矩阵</title>
+<style>
+.wrap{display:grid;grid-template-columns:380px 1fr;gap:56px;align-items:center;height:100%}
+h1{font-size:40px}
+/* 矩阵 = 一个大容器 + 十字线，不是四张卡。重点象限换底色，其余透明 */
+.mx{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:820px;height:600px;margin-left:44px;border-radius:var(--r-card);background:var(--card);box-shadow:0 0 0 1px var(--line),var(--sh-1)}
+.mx::before,.mx::after{content:"";position:absolute;background:var(--line)}
+.mx::before{left:50%;top:0;bottom:0;width:1px} .mx::after{top:50%;left:0;right:0;height:1px}
+.c{padding:30px 32px;display:flex;flex-direction:column;justify-content:flex-end}
+.c .t{font-size:24px;font-weight:600} .c p{font-size:16px;line-height:1.55;color:var(--muted);margin-top:6px;max-width:17em}
+.c .n{font-family:var(--font-num);font-size:44px;font-weight:700;color:#8A8F99;margin-bottom:auto;line-height:1}
+.c.hot{background:var(--accent);border-radius:0 var(--r-card) 0 0;position:relative;z-index:1;color:#fff}
+.c.hot p{color:#fff} .c.hot .n{color:#fff}
+.ax{position:absolute;font-size:14px;color:var(--muted)}
+.ax.y{left:-34px;top:0;bottom:0;writing-mode:vertical-rl;display:flex;justify-content:space-between;padding:26px 0}
+.ax.x{left:0;right:0;bottom:-32px;display:flex;justify-content:space-between;padding:0 30px}
+</style></head><body><div class="slide" style="padding-top:60px;padding-bottom:84px"><div class="wrap">
+ <div><h1><span style="white-space:nowrap">先救</span><span style="white-space:nowrap">“量大又慢”</span><span style="white-space:nowrap">的那一格</span></h1><p class="sub">按线索量和响应速度，十二个销售组分成四类。</p></div>
+ <div class="mx">
+  <div class="c"><div class="n">2</div><div class="t">量小但快</div><p>保持现状，把做法写成规则。</p></div>
+  <div class="c hot"><div class="n">5</div><div class="t">量大又快</div><p>标杆组，每月轮流带一个慢组。</p></div>
+  <div class="c"><div class="n">1</div><div class="t">量小又慢</div><p>并入邻近大区统一分配。</p></div>
+  <div class="c" style="background:var(--accent-soft);border-radius:0 0 var(--r-card) 0"><div class="n" style="color:var(--accent)">4</div><div class="t">量大又慢</div><p>优先接入自动分配，本月内完成。</p></div>
+  <div class="ax y"><span>响应快</span><span>响应慢</span></div>
+  <div class="ax x"><span>线索量小</span><span>线索量大</span></div>
+ </div>
+</div></div><script src="no-orphan.js"></script><script>fixOrphans(document,{selector:".sub"})</script></body></html>

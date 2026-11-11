@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>09 漏斗：宽度就是数据</title>
+<style>
+.wrap{display:grid;grid-template-columns:380px 1fr;gap:40px;align-items:center;height:100%}
+svg text{font-family:var(--font-sans)} h1{font-size:40px}
+</style></head><body><div class="slide" style="padding-top:44px;padding-bottom:44px"><div class="wrap">
+ <div><h1><span style="white-space:nowrap">最大的流失在</span><span style="white-space:nowrap">“分配到跟进”</span><span style="white-space:nowrap">这一步</span></h1><p class="sub">一千两百多条线索里，只有不到一半在当天被人接住。</p></div>
+ <svg id="f" viewBox="0 0 880 620" width="880" height="620" role="img" aria-label="线索转化漏斗"></svg>
+</div></div>
+<script>
+/* 几何规则：
+   1. 每层上边宽 = 本层数值 / 首层数值 × W，下边宽 = 下一层数值对应的宽 → 斜边真实表达流失。
+   2. 末层太窄会放不下字：宽度下限 minW，只影响绘制不改数字，数字永远写真实值。
+   3. 层高一致、层间留 gap；标签左对齐在漏斗左侧一条竖线上，转化率右对齐在右侧，不压在梯形里。
+   4. 只有一层用强调色（流失最大的那一步的下游层），其余同一灰阶。 */
+(function(){
+  var NS='http://www.w3.org/2000/svg',svg=document.getElementById('f');
+  var data=[['进入线索池',1284],['完成分配',1190],['当天跟进',562],['有效沟通',348],['成交',191]];
+  var x0=170,W=520,top=30,h=96,gap=14,minW=64,cx=x0+W/2,max=data[0][1];
+  var w=data.map(function(d){return Math.max(minW,d[1]/max*W)});
+  var drop=data.map(function(d,i){return i?1-d[1]/data[i-1][1]:0}),worst=drop.indexOf(Math.max.apply(null,drop));
+  function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;svg.appendChild(e);return e;}
+  data.forEach(function(d,i){
+    var y=top+i*(h+gap),wt=w[i],wb=i<data.length-1?w[i+1]:w[i],hot=i===worst;
+    el('path',{d:'M'+(cx-wt/2)+' '+y+' H'+(cx+wt/2)+' L'+(cx+wb/2)+' '+(y+h)+' H'+(cx-wb/2)+'Z',fill:hot?'#E4003A':['#2B2D34','#55585F','#7C7F86','#A3A5AB','#C6C7CB'][i]});
+    el('text',{x:x0-28,y:y+h/2-6,'text-anchor':'end','font-size':17,'font-weight':600,fill:'#0E0F13'},d[0]);
+    el('text',{x:x0-28,y:y+h/2+20,'text-anchor':'end','font-size':22,fill:hot?'#C50033':'#636874','font-family':'Helvetica Neue,Arial'},d[1].toLocaleString('en-US'));
+    if(i){var yy=y-gap/2;el('text',{x:x0+W+34,y:yy+6,'font-size':hot?26:17,'font-weight':hot?600:400,fill:hot?'#E4003A':'#636874','font-family':'Helvetica Neue,Arial,PingFang SC'},(d[1]/data[i-1][1]*100).toFixed(0)+'%');
+      if(hot)el('path',{d:'M'+(cx+w[i-1]/2+12)+' '+yy+' H'+(x0+W+24),stroke:'#E4003A','stroke-width':1});
+      if(hot)el('text',{x:x0+W+34,y:yy+30,'font-size':13.5,fill:'#636874'},'只有不到一半');}
+  });
+  el('text',{x:x0+W+34,y:top+2,'font-size':13.5,fill:'#6B707B'},'逐层转化');
+})();
+</script></body></html>

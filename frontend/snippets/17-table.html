@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>17 表格：只留横线，数字右对齐</title>
+<style>
+table{width:100%;border-collapse:collapse;margin-top:40px;font-size:20px}
+th{font-size:14px;font-weight:400;color:var(--muted);text-align:left;padding:0 18px 14px;border-bottom:1px solid #CFCAC2}
+td{padding:0 18px;height:86px;border-bottom:1px solid var(--line-2);color:var(--ink-2)}
+/* 数字列：右对齐 + 等宽数字 + 西文字体；表头跟着右对齐 */
+th.n,td.n{text-align:right} td.n{font-family:var(--font-num);font-variant-numeric:lining-nums tabular-nums;font-size:21px}
+td:first-child,th:first-child{padding-left:0} td:last-child,th:last-child{padding-right:0}
+td:first-child{font-weight:600;color:var(--ink)}
+/* 重点行：浅强调底向两侧出血 18px，不加边框；只有这一行的关键数字用强调色 */
+tr.hot td{background:var(--accent-soft);border-bottom-color:transparent}
+tr.hot td:first-child{box-shadow:-18px 0 0 var(--accent-soft);} tr.hot td:last-child{box-shadow:18px 0 0 var(--accent-soft)}
+tr.hot td.k{color:var(--accent);font-weight:700}
+tfoot td{border-bottom:0;font-size:12.5px;color:var(--muted)!important;font-weight:400!important;height:48px}
+.tag{display:inline-block;margin-left:10px;font-size:12.5px;font-weight:600;color:var(--accent-deep);border:1px solid currentColor;border-radius:3px;padding:1px 6px;vertical-align:2px}
+</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">华东区响应最快，转化也最高</h1>
+<table>
+ <thead><tr><th style="width:24%">大区</th><th class="n">新增线索</th><th class="n">当天跟进率</th><th class="n">首次响应（分钟）</th><th class="n">成交转化</th><th class="n">环比</th></tr></thead>
+ <tbody>
+  <tr class="hot"><td>华东<span class="tag">最佳</span></td><td class="n">486</td><td class="n">94%</td><td class="n k">3.1</td><td class="n k">14.2%</td><td class="n">+2.4</td></tr>
+  <tr><td>华南</td><td class="n">352</td><td class="n">89%</td><td class="n">4.0</td><td class="n">12.1%</td><td class="n">+1.8</td></tr>
+  <tr><td>华北</td><td class="n">268</td><td class="n">86%</td><td class="n">4.6</td><td class="n">10.9%</td><td class="n">+0.7</td></tr>
+  <tr><td>西南</td><td class="n">121</td><td class="n">79%</td><td class="n">6.3</td><td class="n">8.4%</td><td class="n">−0.3</td></tr>
+  <tr><td>其他</td><td class="n">57</td><td class="n">71%</td><td class="n">11.5</td><td class="n">6.0%</td><td class="n">−1.1</td></tr>
+ </tbody>
+ <tfoot><tr><td colspan="6">环比单位为百分点。负号用 U+2212（−），不用连字符。来源：线索工作台，11 月 3 日至 9 日。</td></tr></tfoot>
+</table>
+</div></body></html>

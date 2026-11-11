@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>23 时间线：间距就是时间</title>
+<style>svg text{font-family:var(--font-sans)}</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">从试点到全国推开，一共十四周</h1>
+<svg id="t" viewBox="0 0 1304 520" width="1304" height="520" style="margin-top:30px" role="img" aria-label="项目时间线"></svg>
+<div class="note" data-lint-skip>23 · 节点的 x 坐标 = 日期按比例换算，不是平均分；已完成实心、当前强调色放大、未来空心；标签上下交错避免相撞</div>
+</div>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg',svg=document.getElementById('t');
+  // 周数 → x。轴 0–14 周
+  var ev=[[0,'8 月 18 日','华东试点启动','两个销售组，手动规则'],[3,'9 月 8 日','接入小红书私信','线索入口从 2 个变 5 个'],[9,'10 月 20 日','自动分配上线','响应时间降到 4 分钟',1],[11,'11 月 3 日','华南、华北接入','三大区同一套口径'],[14,'11 月 24 日','全国推开','剩余大区分两批',2]];
+  var L=20,R=1284,Y=260,x=function(w){return L+w/14*(R-L)},now=11.6;
+  function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;svg.appendChild(e);return e;}
+  el('path',{d:'M'+L+' '+Y+' H'+R,stroke:'#D5D1CA','stroke-width':2});
+  el('path',{d:'M'+L+' '+Y+' H'+x(now),stroke:'#0E0F13','stroke-width':2});
+  for(var w=0;w<=14;w++)el('path',{d:'M'+x(w)+' '+(Y-4)+' V'+(Y+4),stroke:w<=now?'#0E0F13':'#C9C5BE','stroke-width':1});
+  el('path',{d:'M'+x(now)+' '+(Y-18)+' V'+(Y+18),stroke:'#E4003A','stroke-width':1.5});
+  el('text',{x:x(now)+8,y:Y+34,'font-size':13,fill:'#C50033'},'今天');
+  ev.forEach(function(e,i){
+    var X=x(e[0]),up=i%2===0,hot=e[4]===1,future=e[4]===2,r=hot?11:7,anchor=i===0?'start':i===ev.length-1?'end':'middle',tx=i===0?X-7:i===ev.length-1?X+7:X;
+    el('path',{d:'M'+X+' '+(up?Y-r-4:Y+r+4)+' V'+(up?Y-56:Y+56),stroke:'#C9C5BE','stroke-width':1});
+    el('circle',{cx:X,cy:Y,r:r,fill:hot?'#E4003A':future?'#F8F7F5':'#0E0F13',stroke:hot?'#E4003A':'#0E0F13','stroke-width':2});
+    var y0=up?Y-136:Y+84;
+    el('text',{x:tx,y:y0,'text-anchor':anchor,'font-size':14,fill:'#6B707B','font-family':'Helvetica Neue,Arial,PingFang SC'},e[1]);
+    el('text',{x:tx,y:y0+32,'text-anchor':anchor,'font-size':hot?26:22,'font-weight':600,fill:hot?'#E4003A':'#0E0F13'},e[2]);
+    el('text',{x:tx,y:y0+58,'text-anchor':anchor,'font-size':15,fill:'#636874'},e[3]);
+  });
+})();
+</script></body></html>

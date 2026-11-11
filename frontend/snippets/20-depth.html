@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>20 一套深度语言</title>
+<style>
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:30px}
+.tag{font-size:14px;color:var(--muted);margin-bottom:16px}
+/* ── 正确：全 deck 只有三层 ──
+   L0 画布底色；L1 白卡 = 白底 + 1px 发丝线(用 box-shadow 画，不占尺寸) + 两段柔和阴影；
+   L2 卡内嵌套 = 浅底 + 无阴影，圆角 = 外圆角 − 内边距（同心） */
+.l1{--r:14px;--p:22px;background:var(--card);border-radius:var(--r);padding:var(--p);box-shadow:0 0 0 1px var(--line),var(--sh-1)}
+.l2{background:var(--soft);border-radius:max(4px,calc(var(--r) - var(--p) + 8px));padding:16px 18px;margin-top:16px}
+.t{font-size:21px;font-weight:600} .d{font-size:15.5px;line-height:1.6;color:var(--muted);margin-top:6px}
+.kv{display:flex;justify-content:space-between;font-size:15.5px;color:var(--ink-2)} .kv+.kv{margin-top:8px} .kv b{font-family:var(--font-num);font-weight:600}
+.good{display:grid;gap:18px}
+/* ── 错误示范：五种深度手法混用（仅用于对照，不要复制） ── */
+.bad{display:grid;gap:18px}
+.b1{background:#fff;border:1px solid #d9d9d9;border-radius:14px;padding:22px;box-shadow:0 10px 40px rgba(0,0,0,.18)}
+.b1 .in{background:#fff;border:1px solid #d9d9d9;border-radius:14px;padding:16px 18px;margin-top:16px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.b2{background:linear-gradient(135deg,#fff,#ffe9ef);border-left:4px solid var(--accent);border-radius:14px;padding:22px;box-shadow:0 0 24px rgba(228,0,58,.25)}
+</style></head><body><div class="slide" style="padding-top:60px">
+<h1 style="font-size:36px">深度只说一种话：白卡浮起一层，卡里的东西沉下去</h1>
+<div class="cols">
+ <div><div class="tag">混用：粗边框 + 重阴影、卡中卡同样浮起、渐变底、左侧色条、彩色光晕</div>
+  <div class="bad"><div class="b1"><div class="t">自动分配</div><div class="d">按区域、行业和负载把线索推给个人。</div><div class="in"><div class="kv"><span>本周分配</span><b>1,190</b></div><div class="kv"><span>平均耗时</span><b>8 秒</b></div></div></div>
+   <div class="b2"><div class="t">超时升级</div><div class="d">15 分钟无人响应，自动转给主管。</div></div></div></div>
+ <div><div class="tag">统一：L1 白卡（发丝线 + 柔和双层阴影），L2 浅底无阴影，圆角同心</div>
+  <div class="good"><div class="l1"><div class="t">自动分配</div><div class="d">按区域、行业和负载把线索推给个人。</div><div class="l2"><div class="kv"><span>本周分配</span><b>1,190</b></div><div class="kv"><span>平均耗时</span><b>8 秒</b></div></div></div>
+   <div class="l1"><div class="t">超时升级</div><div class="d">15 分钟无人响应，自动转给主管。</div></div></div></div>
+</div>
+<div class="note" data-lint-skip>20 · 阴影永远是中性色、向下偏移、两段（贴地 1–2px + 环境 6–16px）；彩色阴影只允许出现在唯一的强调块上</div>
+</div></body></html>

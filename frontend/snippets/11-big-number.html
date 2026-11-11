@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>11 大数字 + 单位</title>
+<style>
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:64px;align-items:end;margin-top:auto}
+/* 数字用西文字体栈（数字更挺），单位用中文字体；单位字号 = 数字的 0.34，基线对齐，不要上标 */
+.num{display:flex;align-items:baseline;gap:.06em;font-family:var(--font-num);font-size:300px;font-weight:700;line-height:.9;letter-spacing:-.045em;color:var(--accent);font-variant-numeric:lining-nums tabular-nums}
+.num .u{font-family:var(--font-sans);font-size:.34em;font-weight:600;letter-spacing:0;margin-left:.08em}
+.cap{margin-top:34px;font-size:28px;line-height:1.5;font-weight:500;max-width:15em;text-wrap:balance}
+/* 大数字要有参照物：一条等比例的对比条，说明这个数相对于什么 */
+.ctx{padding-bottom:10px}
+.ctx .row{display:grid;grid-template-columns:72px 1fr 92px;align-items:center;gap:16px;height:64px;font-size:17px;color:var(--muted)}
+.ctx .bar{height:18px;border-radius:3px;background:#D9D5CE}
+.ctx .row.now{color:var(--ink);font-weight:600} .ctx .row.now .bar{background:var(--accent)}
+.ctx .v{font-family:var(--font-num);font-size:19px;text-align:right}
+.ctx .src{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+</style></head><body><div class="slide" style="padding-top:80px;padding-bottom:104px;display:flex;flex-direction:column">
+<h1 style="font-size:32px;font-weight:500;color:var(--ink-2)">首次响应时间</h1>
+<div class="grid">
+ <div><div class="num">4<span class="u">分钟</span></div><div class="cap">上线第一周，平均响应从四小时降到四分钟</div></div>
+ <div class="ctx">
+  <div class="row"><span>上线前</span><div class="bar" style="width:100%"></div><span class="v">240 分钟</span></div>
+  <div class="row now"><span>上线后</span><div class="bar" style="width:max(1.67%,6px)"></div><span class="v">4 分钟</span></div>
+  <div class="src">口径：首次有效回复，不含自动问候。来源：工作台日志，11 月 3 日至 9 日。</div>
+ </div>
+</div>
+<div class="note" data-lint-skip>11 · 一页一个主数字；数字:单位 = 1:0.34，基线对齐；旁边必须有参照（对比条 / 基准线）和口径</div>
+</div></body></html>

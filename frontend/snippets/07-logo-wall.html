@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>07 Logo 墙：等面积归一</title>
+<style>
+.tag{font-size:14px;color:var(--muted);margin:26px 0 14px}
+.wall{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.wall .c{height:104px;display:grid;place-items:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.wall svg{display:block;color:var(--ink-2)}
+/* 错：统一高度 → 横长的字标显得巨大，方形图标显得很小 */
+.same svg{height:34px;width:calc(34px*var(--ar))}
+/* 对：统一视觉面积。--ar = 宽/高（来自 viewBox）。w = k·ar^0.6（0.5 是严格等面积，0.6 给字标多留一点宽度），高由 aspect-ratio 推出；再夹住上下限 */
+.norm svg{--k:54px;width:clamp(40px,calc(var(--k)*pow(var(--ar),.6)),150px);height:auto;aspect-ratio:var(--ar)}
+/* 统一色：单色 logo 用 currentColor；彩色位图用 filter:grayscale(1) + opacity .7 */
+</style></head><body><div class="slide" style="padding-top:60px">
+<h1 style="font-size:36px">六个长宽比完全不同的 logo，看起来要一样重</h1>
+<div class="tag">统一高度 34px：看着大小不一</div><div class="wall same" id="a"></div>
+<div class="tag">统一视觉面积（宽 = k × 比例^0.6，高随比例推出）：分量一致，全部落在格子光学中心</div><div class="wall norm" id="b"></div>
+<div class="note" data-lint-skip>07 · 示例 logo 为虚构图形；--ar 取自各自 viewBox。真实项目用官方 SVG，不要重画</div>
+</div>
+<script>
+// 六个虚构 logo：比例 1:1 到 6:1
+var L=[
+ ['0 0 40 40','<rect x="2" y="2" width="36" height="36" rx="10" fill="currentColor"/><circle cx="20" cy="20" r="8" fill="#fff"/>'],
+ ['0 0 240 40','<text x="0" y="31" font-family="Helvetica Neue,Arial" font-size="34" font-weight="700" letter-spacing="-1" fill="currentColor">NORTHWIND</text>'],
+ ['0 0 120 40','<circle cx="20" cy="20" r="18" fill="currentColor"/><text x="46" y="30" font-family="Georgia,serif" font-size="28" font-style="italic" fill="currentColor">Alto</text>'],
+ ['0 0 60 40','<path d="M2 38 L30 2 L58 38Z" fill="currentColor"/>'],
+ ['0 0 170 40','<text x="0" y="30" font-family="PingFang SC,Microsoft YaHei" font-size="30" font-weight="600" fill="currentColor">青禾科技</text><rect x="130" y="6" width="34" height="28" rx="6" fill="currentColor"/>'],
+ ['0 0 32 44','<path d="M16 2 L30 12 V32 L16 42 L2 32 V12Z" fill="currentColor"/>']];
+['a','b'].forEach(function(id){var w=document.getElementById(id);L.forEach(function(l){
+  var vb=l[0].split(' '),ar=(vb[2]/vb[3]).toFixed(3);
+  w.insertAdjacentHTML('beforeend','<div class="c"><svg viewBox="'+l[0]+'" style="--ar:'+ar+'" aria-hidden="true">'+l[1]+'</svg></div>');});});
+</script></body></html>

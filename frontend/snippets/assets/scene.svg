@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27425E"/><stop offset=".55" stop-color="#C98B6B"/><stop offset="1" stop-color="#F1C99B"/></linearGradient>
+    <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B5A72"/><stop offset="1" stop-color="#8A6F74"/></linearGradient>
+    <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34364B"/><stop offset="1" stop-color="#4C4558"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#23222E"/><stop offset="1" stop-color="#121218"/></linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF3D6"/><stop offset=".35" stop-color="#FFD9A0" stop-opacity=".9"/><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="2400" height="1600" fill="url(#sky)"/>
+  <circle cx="1680" cy="760" r="330" fill="url(#sun)"/>
+  <circle cx="1680" cy="760" r="74" fill="#FFF6E2"/>
+  <path d="M0 980 L260 800 L470 900 L760 660 L1010 860 L1260 740 L1530 900 L1830 720 L2120 880 L2400 780 V1600 H0Z" fill="url(#m1)"/>
+  <path d="M0 1150 L320 960 L640 1100 L930 930 L1280 1120 L1600 980 L1960 1130 L2400 1000 V1600 H0Z" fill="url(#m2)"/>
+  <path d="M0 1320 C400 1240 800 1300 1200 1270 S2000 1240 2400 1300 V1600 H0Z" fill="url(#g)"/>
+  <!-- 主体：帐篷 + 人，放在右下三分点，用来演示 object-position -->
+  <g transform="translate(1180 0)"><path d="M520 1300 L700 1090 L880 1300Z" fill="#E9B872"/><path d="M700 1090 L740 1300 L880 1300Z" fill="#B9853F"/>
+  <path d="M690 1300 L700 1180 L722 1300Z" fill="#2A2028"/>
+  <circle cx="980" cy="1218" r="17" fill="#18161C"/><rect x="966" y="1236" width="28" height="64" rx="10" fill="#18161C"/></g>
+</svg>

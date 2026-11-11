@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>点阵地球与连线</title>
+<!-- 09-globe · 来源：Amber signature（官网首屏地球氛围；原为视频，这里用 canvas 点阵重新实现，大洲轮廓为手写近似多边形） · 原创实现，无第三方代码。GSAP 3.13.0（GreenSock Standard License）由固定版本 CDN 引入；离线或加载失败时显示静态终态。 -->
+<!-- 参数：?end 直接静态终态（打印/截图）· ?rm 模拟减少动效 · ?clean 隐藏提示条 -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<style>
+:root{--bg:#F8F7F5;--fg:#0E0F13;--accent:#E4003A;--muted:#636874;--faint:#9AA0AB;--line:#E2DED7;--card:#FFFFFF;--soft:#FDF1F4;--page:#E9E7E3;--ease:cubic-bezier(.16,1,.3,1)}
+body.dark{--bg:#121113;--fg:#F5F2EE;--accent:#FF3369;--muted:#A9A2A6;--faint:#6F6970;--line:#2C292E;--card:#1C1A1E;--soft:#2A1520;--page:#060607}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--page);color:var(--fg);font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1440px;height:810px;transform-origin:0 0;overflow:hidden;background:var(--bg);color:var(--fg)}
+h1,h2,h3,p{margin:0}
+.pad{position:absolute;inset:64px 88px 72px}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.h1{font-size:76px;line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.h2{font-size:46px;line-height:1.22;font-weight:800;letter-spacing:-.015em}
+.h3{font-size:26px;line-height:1.35;font-weight:750}
+.lead{font-size:21px;line-height:1.7;color:var(--muted)}
+.small{font-size:14px;color:var(--muted)}
+.accent{color:var(--accent)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.note{position:absolute;right:88px;bottom:26px;font-size:12px;color:var(--faint)}
+.fx-hud{position:absolute;left:24px;bottom:18px;z-index:999;display:flex;gap:14px;align-items:center;font-size:12px;color:var(--faint);pointer-events:none;letter-spacing:.02em}
+.fx-hud b{font-weight:600;color:var(--muted)}
+.fx-hud .fx-step{font-variant-numeric:tabular-nums}
+.fx-clean .fx-hud{display:none}
+@media print{html,body{overflow:visible;background:var(--bg)}#stage{position:relative;transform:none!important}.fx-hud{display:none}}
+
+/* ---- effect ---- */
+canvas.globe{position:absolute;left:560px;top:30px;width:760px;height:760px}
+.head{position:absolute;left:88px;top:150px;width:520px}
+.head .h2{margin-top:14px}
+.head .lead{margin-top:20px}
+.hubs{position:absolute;left:88px;top:470px;width:470px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hub{border-top:1px solid rgba(255,255,255,.18);padding-top:14px}
+.hub b{display:block;font-size:20px}.hub span{font-size:14px;color:var(--muted)}
+.hub i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:2px}
+</style>
+</head>
+<body class="dark">
+<div id="stage" data-keys="→ / 空格 画连线 · 再按 出说明 · ← 收回 · E 终态">
+<canvas class="globe" width="1520" height="1520" aria-label="点阵地球示意"></canvas>
+<div class="head"><div class="eyebrow">Global · 区域布局</div><h2 class="h2">从一个中心，<br><span class="accent">连到多个市场</span></h2><p class="lead">区域与连线均为示意，非真实业务数据。</p></div>
+<div class="hubs"><div class="hub"><b><i></i>区域 A</b><span>说明占位</span></div><div class="hub"><b><i></i>区域 B</b><span>说明占位</span></div><div class="hub"><b><i></i>区域 C</b><span>说明占位</span></div><div class="hub"><b><i></i>区域 D</b><span>说明占位</span></div></div>
+</div>
+<script>
+/* 共享运行时：舞台缩放、步进、减少动效、静态终态。原创。 */
+window.FX=(function(){
+  var q=new URLSearchParams(location.search);
+  var RM=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||q.has('rm');
+  var END=q.has('end');
+  var G=window.gsap;
+  var stage=document.getElementById('stage');
+  if(q.has('clean'))document.body.classList.add('fx-clean');
+  function fit(){var s=Math.min(innerWidth/1440,innerHeight/810);stage.style.transform='translate('+(innerWidth-1440*s)/2+'px,'+(innerHeight-810*s)/2+'px) scale('+s+')';}
+  addEventListener('resize',fit);fit();
+  var api={RM:RM,END:END,G:G,stage:stage,ready:false,i:0,P:[1],tl:null,loops:[],
+    $:function(s,r){return (r||stage).querySelector(s)},
+    $$:function(s,r){return Array.prototype.slice.call((r||stage).querySelectorAll(s))}};
+  var hudStep=null,opts={};
+  function label(){if(hudStep)hudStep.textContent=api.P.length>1?(api.i+1)+' / '+api.P.length:(api.END||api.RM||!G?'终态':'');}
+  function go(i,instant){
+    if(!api.tl)return;
+    i=Math.max(0,Math.min(api.P.length-1,i));
+    var back=i<api.i; api.i=i;
+    var t=api.P[i];
+    if(instant||RM){api.tl.pause();api.tl.seek(t,false);}
+    else if(back){api.tl.tweenTo(t,{duration:Math.min(.6,Math.max(.25,Math.abs(api.tl.time()-t))),ease:'power2.inOut'});}
+    else api.tl.tweenTo(t);
+    if(opts.onStep)opts.onStep(i);
+    label();
+  }
+  api.go=function(i){go(i)};
+  api.hide=function(tl,t){tl.fromTo(t,{autoAlpha:0},{autoAlpha:0,duration:.001,immediateRender:true},0);return tl;};
+  api.next=function(){go(api.i+1)};
+  api.prev=function(){go(api.i-1)};
+  api.end=function(){api.loops.forEach(function(l){l.pause&&l.pause()});go(api.P.length-1,true);if(opts.staticEnd&&!api.tl)opts.staticEnd();};
+  api.restart=function(){if(!api.tl)return;api.tl.pause().seek(0,false);api.i=-1;go(0)};
+  api.state=function(){var t=api.tl;return {i:api.i,n:api.P.length,progress:t?t.progress():1,active:t?t.isActive():false,gsap:!!G,rm:RM,loops:api.loops.filter(function(l){return l.isActive&&l.isActive()}).length}};
+  api.setup=function(o){
+    opts=o||{};
+    var hud=document.createElement('div');hud.className='fx-hud';
+    hud.innerHTML='<b>'+document.title+'</b><span class="fx-step"></span><span>'+(stage.dataset.keys||'→ / 空格 下一步 · ← 回退 · E 终态 · R 重播')+'</span>';
+    stage.appendChild(hud);hudStep=hud.querySelector('.fx-step');
+    if(!G){stage.classList.add('fx-static');if(opts.staticEnd)opts.staticEnd();api.ready=true;label();return;}
+    G.defaults({ease:'power3.out',duration:.8});
+    var tl=opts.build(G);api.tl=tl;tl.pause();
+    var P=Object.keys(tl.labels).filter(function(k){return /^s\d+$/.test(k)}).map(function(k){return tl.labels[k]});
+    P.push(tl.duration());
+    P=P.sort(function(a,b){return a-b}).filter(function(t,k,a){return k===0||t-a[k-1]>1e-3});
+    api.P=P;
+    if(END||(RM&&P.length===1)){tl.progress(1,false);api.i=P.length-1;}
+    else if(RM){tl.seek(P[0],false);api.i=0;}
+    else {api.i=0;tl.tweenTo(P[0]);}
+    if(opts.onStep)opts.onStep(api.i);
+    if(opts.loop){var made=opts.loop(G)||[];api.loops=made;if(RM||END)made.forEach(function(l){l.pause()});}
+    label();api.ready=true;
+  };
+  var wheelLock=0;
+  addEventListener('wheel',function(e){var n=Date.now();if(n<wheelLock||Math.abs(e.deltaY)<8)return;wheelLock=n+700;e.deltaY>0?api.next():api.prev();},{passive:true});
+  addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(opts.keys&&opts.keys[e.key.toLowerCase()]){opts.keys[e.key.toLowerCase()](e);return;}
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].indexOf(e.key)>-1){e.preventDefault();api.next();}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();api.prev();}
+    else if(e.key==='End'||e.key.toLowerCase()==='e'){e.preventDefault();api.end();}
+    else if(e.key==='Home'||e.key.toLowerCase()==='r'){e.preventDefault();api.restart();}
+    else if(e.key.toLowerCase()==='h'){document.body.classList.toggle('fx-clean');}
+  });
+  stage.addEventListener('click',function(e){if(e.target.closest('button,a,input,[data-noclick]'))return;api.next();});
+  return api;
+})();
+</script>
+<script>
+const LAND=[
+[[-168,66],[-162,70],[-140,70],[-120,72],[-95,72],[-80,73],[-62,66],[-55,52],[-66,45],[-75,38],[-81,31],[-81,25],[-90,29],[-97,26],[-97,20],[-87,21],[-83,10],[-79,8],[-92,15],[-105,20],[-112,30],[-117,33],[-124,40],[-125,49],[-135,58],[-150,60],[-165,62]],
+[[-55,60],[-45,60],[-20,70],[-18,80],[-40,83],[-60,80],[-70,77],[-55,70]],
+[[-80,9],[-72,12],[-60,10],[-50,0],[-35,-6],[-38,-14],[-48,-26],[-58,-38],[-65,-42],[-68,-54],[-74,-50],[-73,-38],[-71,-18],[-81,-5]],
+[[-10,36],[-9,43],[-2,44],[-5,48],[3,51],[8,54],[10,58],[5,62],[15,69],[28,71],[40,67],[42,60],[30,55],[28,46],[40,42],[28,41],[22,37],[15,38],[12,44],[8,44],[3,43],[-5,36]],
+[[-6,50],[2,51],[0,54],[-3,58],[-6,57]],
+[[-17,21],[-10,30],[-5,35],[10,37],[20,32],[32,31],[35,28],[43,12],[51,12],[42,-2],[40,-15],[35,-24],[27,-34],[18,-35],[12,-17],[13,-5],[9,4],[-8,5],[-17,14]],
+[[44,-25],[50,-15],[47,-13],[43,-22]],
+[[28,41],[40,42],[48,30],[56,25],[60,22],[66,25],[72,20],[78,8],[82,16],[92,22],[98,16],[104,1],[109,12],[108,21],[118,24],[122,31],[121,40],[126,38],[129,35],[130,43],[142,47],[140,54],[135,55],[155,59],[163,60],[178,65],[180,70],[140,73],[110,77],[80,73],[68,69],[60,69],[45,68],[40,67],[42,60],[30,55],[28,46]],
+[[130,31],[135,34],[140,36],[142,40],[140,42],[145,44],[141,45],[139,38],[132,34]],
+[[95,5],[106,-6],[115,-8],[120,-9],[125,-8],[119,-3],[118,4],[110,2],[104,1]],
+[[114,-22],[122,-18],[130,-12],[137,-12],[142,-11],[146,-19],[153,-27],[150,-37],[141,-38],[131,-31],[115,-34]]];
+function inPoly(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const [xi,yi]=p[i],[xj,yj]=p[j];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))c=!c;}return c;}
+const dots=[];for(let lat=-58;lat<=80;lat+=2.4){const n=Math.max(8,Math.round(150*Math.cos(lat*Math.PI/180)));for(let k=0;k<n;k++){const lon=-180+k*360/n;if(LAND.some(p=>inPoly(lon,lat,p)))dots.push([lon,lat]);}}
+const HUBS=[[121,31],[-0.1,51.5],[-74,40.7],[103.8,1.3],[151,-33.8]],LINKS=[[0,1],[0,2],[0,3],[0,4]];
+const cv=FX.$('canvas.globe'),cx=cv.getContext('2d'),W=1520,C=W/2,RAD=640,TILT=18*Math.PI/180;
+const S={rot:-110,arc:0,show:1};
+const rad=d=>d*Math.PI/180;
+function proj(lon,lat,h){const l=rad(lon+S.rot),p=rad(lat),k=1+(h||0);const x=Math.cos(p)*Math.sin(l),y0=Math.sin(p),z0=Math.cos(p)*Math.cos(l);const y=y0*Math.cos(TILT)-z0*Math.sin(TILT),z=y0*Math.sin(TILT)+z0*Math.cos(TILT);return [C+RAD*k*x,C-RAD*k*y,z];}
+function vec(lon,lat){const l=rad(lon),p=rad(lat);return [Math.cos(p)*Math.cos(l),Math.cos(p)*Math.sin(l),Math.sin(p)];}
+function slerp(a,b,t){const A=vec(...a),B=vec(...b);const d=Math.acos(Math.min(1,A[0]*B[0]+A[1]*B[1]+A[2]*B[2]));const s=Math.sin(d);const f=Math.sin((1-t)*d)/s,g=Math.sin(t*d)/s;const v=[A[0]*f+B[0]*g,A[1]*f+B[1]*g,A[2]*f+B[2]*g];return [Math.atan2(v[1],v[0])*180/Math.PI,Math.asin(v[2])*180/Math.PI];}
+function draw(){
+  cx.clearRect(0,0,W,W);cx.globalAlpha=S.show;
+  const g=cx.createRadialGradient(C-180,C-220,60,C,C,RAD*1.08);g.addColorStop(0,'#2a1a22');g.addColorStop(.7,'#141215');g.addColorStop(1,'rgba(18,17,19,0)');
+  cx.fillStyle=g;cx.beginPath();cx.arc(C,C,RAD*1.05,0,7);cx.fill();
+  cx.strokeStyle='rgba(255,51,105,.25)';cx.lineWidth=2;cx.beginPath();cx.arc(C,C,RAD,0,7);cx.stroke();
+  for(const [lon,lat] of dots){const [x,y,z]=proj(lon,lat);if(z<=0)continue;cx.fillStyle='rgba(245,242,238,'+(.18+.6*z).toFixed(3)+')';cx.beginPath();cx.arc(x,y,3.2*(.6+.4*z),0,7);cx.fill();}
+  LINKS.forEach(([a,b],k)=>{const t=Math.max(0,Math.min(1,S.arc*LINKS.length-k*.6));if(t<=0)return;cx.strokeStyle='#FF3369';cx.lineWidth=3.5;cx.beginPath();let pen=false;for(let i=0;i<=60*t;i++){const u=i/60,[lo,la]=slerp(HUBS[a],HUBS[b],u),[x,y,z]=proj(lo,la,.18*Math.sin(Math.PI*u));if(z<-.15){pen=false;continue;}pen?cx.lineTo(x,y):cx.moveTo(x,y);pen=true;}cx.stroke();});
+  HUBS.forEach(h=>{const [x,y,z]=proj(...h);if(z<=0)return;cx.fillStyle='#FF3369';cx.beginPath();cx.arc(x,y,9,0,7);cx.fill();cx.strokeStyle='rgba(255,51,105,.4)';cx.lineWidth=2;cx.beginPath();cx.arc(x,y,20,0,7);cx.stroke();});
+  cx.globalAlpha=1;
+}
+draw();
+FX.setup({
+  build(g){
+    const tl=g.timeline({onUpdate:draw});
+    tl.from('.head > *',{autoAlpha:0,y:30,stagger:.12,duration:.9,ease:'expo.out'},0);
+    tl.fromTo(S,{show:0},{show:1,duration:1.2,ease:'power2.out'},.1);
+    tl.from(cv,{scale:.94,duration:1.6,ease:'expo.out'},.1);
+    tl.addLabel('s1');
+    tl.fromTo(S,{arc:0},{arc:1,duration:2.4,ease:'power1.inOut',immediateRender:false},'s1');
+    tl.addLabel('s2');
+    tl.from('.hub',{autoAlpha:0,y:20,stagger:.1,duration:.7,ease:'expo.out'},'s2');
+    return tl;
+  },
+  loop(g){return [g.to(S,{rot:'+=360',duration:60,ease:'none',repeat:-1,onUpdate:draw})]},
+  staticEnd(){S.arc=1;draw();}
+});
+</script>
+</body>
+</html>

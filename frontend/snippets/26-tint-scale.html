@@ -1,0 +1,41 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>26 单一强调色的色阶</title>
+<style>
+.pair{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.half{padding:84px 60px 64px 68px;background:var(--bg);color:var(--ink);display:flex;flex-direction:column}
+.half h2{font-size:40px;font-weight:600;line-height:1.3}
+.half p{font-size:19px;color:var(--muted);margin-top:8px;line-height:1.6}
+/* 色阶全部由一个 --accent 派生：往底色里混，而不是往白/黑里混 → 暖白底和深底都自然 */
+.half{
+  --a-08:color-mix(in oklch,var(--accent) 8%,var(--bg));
+  --a-16:color-mix(in oklch,var(--accent) 16%,var(--bg));
+  --a-40:color-mix(in oklch,var(--accent) 40%,var(--bg));
+  --a-ink:color-mix(in oklch,var(--accent) 82%,var(--ink));   /* 小字用的加深强调色 */
+}
+.sw{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:44px}
+.sw div{height:170px;border-radius:8px;display:flex;align-items:flex-end;padding:10px;font-size:12.5px;font-family:var(--font-num)}
+.use{margin-top:44px;display:grid;gap:22px}
+.chip{display:inline-block;background:var(--a-08);color:var(--a-ink);font-size:16px;font-weight:600;padding:5px 10px;border-radius:4px}
+.row{display:flex;align-items:center;gap:16px;font-size:22px}
+.btn{background:var(--accent);color:#fff;font-size:19px;font-weight:600;padding:10px 18px;border-radius:8px}
+.hl{background:linear-gradient(transparent 62%,var(--a-16) 62%);font-weight:600}
+.cr{margin-top:auto;font-size:12.5px;color:var(--muted);font-family:var(--font-num);line-height:1.7}
+</style></head><body><div class="slide" style="padding:0"><div class="pair">
+ <div class="half"><h2>暖白底</h2><p>强调色只做四件事：一个主块、小标签、划重点、数据里的那一根。</p>
+  <div class="sw" data-lint-skip><div style="background:var(--a-08);color:var(--muted)">8%</div><div style="background:var(--a-16);color:var(--muted)">16%</div><div style="background:var(--a-40);color:#fff">40%</div><div style="background:var(--accent);color:#fff">100%</div><div style="background:var(--a-ink);color:#fff">ink</div></div>
+  <div class="use"><div class="row"><span class="chip">本周重点</span><span>响应时间降到 <span class="hl">4 分钟</span></span></div><div class="row"><span class="btn">主块：白字</span><span style="color:var(--a-ink);font-weight:600">加深强调色做小字</span></div></div>
+  <div class="cr" data-cr></div></div>
+ <div class="half" data-family="dark"><h2>深底</h2><p>同一套公式，换的只是 --bg、--ink 和略降饱和的 --accent。</p>
+  <div class="sw" data-lint-skip><div style="background:var(--a-08);color:var(--muted)">8%</div><div style="background:var(--a-16);color:var(--muted)">16%</div><div style="background:var(--a-40);color:#fff">40%</div><div style="background:var(--accent);color:#fff">100%</div><div style="background:color-mix(in oklch,var(--accent) 62%,var(--ink));color:#121113">ink</div></div>
+  <div class="use" style="--a-ink:color-mix(in oklch,var(--accent) 62%,var(--ink))"><div class="row"><span class="chip">本周重点</span><span>响应时间降到 <span class="hl">4 分钟</span></span></div><div class="row"><span class="btn">主块：白字</span><span style="color:var(--a-ink);font-weight:600">提亮强调色做小字</span></div></div>
+  <div class="cr" data-cr></div></div>
+</div></div>
+<script>
+// 实测对比度（WCAG 2.x），写在页面上，方便截图验收
+function lum(c){var m=c.match(/[\d.]+/g).map(Number);if(/color\(srgb/.test(c))m=m.slice(0,3).map(function(v){return v*255});return [0,1,2].map(function(i){var v=m[i]/255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).reduce(function(a,v,i){return a+v*[.2126,.7152,.0722][i]},0)}
+function toRGB(el,prop){var cv=document.createElement('canvas').getContext('2d');cv.fillStyle=getComputedStyle(el)[prop];cv.fillRect(0,0,1,1);var d=cv.getImageData(0,0,1,1).data;return 'rgb('+d[0]+','+d[1]+','+d[2]+')'}
+function cr(a,b){var x=lum(a),y=lum(b);return ((Math.max(x,y)+.05)/(Math.min(x,y)+.05)).toFixed(1)}
+document.querySelectorAll('.half').forEach(function(h){
+  var bg=toRGB(h,'backgroundColor'),btn=h.querySelector('.btn'),chip=h.querySelector('.chip'),p=h.querySelector('p'),small=h.querySelector('.row:last-child span:last-child');
+  h.querySelector('[data-cr]').innerHTML='对比度 · 正文灰/底 '+cr(toRGB(p,'color'),bg)+' · 白字/强调块 '+cr(toRGB(btn,'color'),toRGB(btn,'backgroundColor'))+' · 标签字/标签底 '+cr(toRGB(chip,'color'),toRGB(chip,'backgroundColor'))+' · 强调小字/底 '+cr(toRGB(small,'color'),bg);
+});
+</script></body></html>

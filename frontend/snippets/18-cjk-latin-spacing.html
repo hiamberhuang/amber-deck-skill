@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>18 中西文间距</title>
+<style>
+.rows{margin-top:36px;display:grid;grid-template-columns:230px 1fr;row-gap:0}
+.rows .k{font-size:14px;color:var(--muted);padding:22px 0;border-top:1px solid var(--line);line-height:1.5}
+.rows .v{font-size:30px;line-height:1.5;padding:18px 0;border-top:1px solid var(--line);font-weight:500}
+.off{text-autospace:no-autospace}
+.k b{display:block;color:var(--ink);font-size:16px;font-weight:600}
+</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">汉字和字母、数字之间要有四分之一个字的呼吸</h1>
+<div class="rows">
+ <div class="k"><b>挤在一起</b>源文本无空格，间距关闭</div><div class="v off">上线4周后，B2B线索的ROI提升了38%，CRM里新增1,284条记录。</div>
+ <div class="k"><b>手敲空格</b>半角空格偏宽，且容易漏</div><div class="v off">上线 4 周后，B2B 线索的 ROI 提升了 38%，CRM 里新增 1,284 条记录。</div>
+ <div class="k"><b>text-autospace</b>Chrome 140+ 原生，无空格字符</div><div class="v" style="text-autospace:normal">上线4周后，B2B线索的ROI提升了38%，CRM里新增1,284条记录。</div>
+ <div class="k"><b>cjk-spacing.js</b>旧内核兜底，margin .2em</div><div class="v off" id="js">上线 4 周后，B2B线索的ROI提升了38%，CRM 里新增1,284条记录。</div>
+</div>
+<div class="note" data-lint-skip id="n">18</div>
+</div>
+<script src="cjk-spacing.js"></script>
+<script>
+var made=cjkSpacing(document.getElementById('js'),true);
+document.getElementById('n').textContent='18 · 全 deck 只选一种策略：源文本不写空格 + text-autospace:normal（并用 cjk-spacing.js 兜底）。原生支持：'+(CSS.supports('text-autospace','normal')?'是':'否')+' · 脚本处理 '+made+' 处';
+</script></body></html>

@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>02 no-orphan.js：孤字自动修复</title>
+<style>
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.tag{font-size:14px;color:var(--muted);margin-bottom:18px}
+.card{width:520px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:28px 30px;box-shadow:var(--sh-1);margin-bottom:22px}
+.card .t{font-size:22px;font-weight:600;line-height:1.4}
+.card p{margin-top:10px;font-size:16px;line-height:1.6;color:var(--muted)}
+.cnt{font-size:12.5px;color:var(--accent);margin-top:8px}
+</style></head><body><div class="slide" style="padding-top:64px">
+<div class="cols">
+ <div id="raw"><div class="tag">原样：标题和正文的末行都只剩一两个字</div>
+  <div class="card"><div class="t">自动分配规则上线后，销售不用再手动认领线索了</div><p>系统按区域、行业和负载把线索直接推给个人，超时自动升级主管。</p></div>
+  <div class="card"><div class="t">第一周就把平均响应时间从四小时压到四分钟内</div><p>数字来自工作台原始日志，口径是首次有效回复，不含自动问候语。</p></div></div>
+ <div id="fix"><div class="tag">fixOrphans() 之后：末行至少四个字，上一行自动回收</div>
+  <div class="card"><div class="t">自动分配规则上线后，销售不用再手动认领线索了</div><p>系统按区域、行业和负载把线索直接推给个人，超时自动升级主管。</p></div>
+  <div class="card"><div class="t">第一周就把平均响应时间从四小时压到四分钟内</div><p>数字来自工作台原始日志，口径是首次有效回复，不含自动问候语。</p></div></div>
+</div>
+<div class="note" data-lint-skip id="n">02 · no-orphan.js</div>
+</div>
+<script src="no-orphan.js"></script>
+<script>
+document.fonts.ready.then(function(){
+  var before = [].map.call(document.querySelectorAll('#raw .t,#raw p'), function(e){return lastLineCount(e).count});
+  var fixed = fixOrphans(document.getElementById('fix'), {selector:'.t,p', min:3, keep:4});
+  var after = [].map.call(document.querySelectorAll('#fix .t,#fix p'), function(e){return lastLineCount(e).count});
+  document.getElementById('n').textContent = '02 · no-orphan.js · 末行实字数 修复前 ['+before+'] → 修复后 ['+after+'] · 修了 '+fixed.length+' 处';
+  document.documentElement.dataset.ready='1';
+});
+</script></body></html>

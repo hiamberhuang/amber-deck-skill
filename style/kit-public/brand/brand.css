@@ -1,0 +1,13 @@
+/* Noumena 品牌层（可整体删除）
+   - 公开色值：实测自 Noumena 官方 HTML deck（见 ../../tokens.json → families.warm-white-roadshow.color）
+   - 字标：wordmark.png（浅底）/ wordmark-white.png（深底）
+   启用：在 index.html 的 head 里，最后一行加 <link rel="stylesheet" href="brand/brand.css"> */
+:root,[data-family]{
+  --accent:#E4003A; --accent-deep:#C50033; --accent-2:#F04C74; --accent-tint:#F59AB0;
+  --eyebrow:#E9718E; --accent-soft:#FDF1F4; --accent-soft-2:#FBE4EA;
+  --sh-accent:0 2px 6px rgba(228,0,58,.10),0 14px 30px rgba(228,0,58,.16);
+}
+[data-family="dark"]{--accent:#DC0344; --eyebrow:#DC0344; --accent-soft:rgba(220,3,68,.12)}
+.brandmark{border:0;min-width:0;width:auto;aspect-ratio:600/95;background:url(wordmark.png) left center/contain no-repeat}
+.brandmark::after{content:none}
+.slide[data-family="dark"] .brandmark,.slide.dark-case .brandmark{background-image:url(wordmark-white.png)}

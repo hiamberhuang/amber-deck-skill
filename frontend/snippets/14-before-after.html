@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>14 前后对比：同一把尺</title>
+<style>
+.ba{margin-top:46px;display:grid;grid-template-columns:150px 1fr 96px;row-gap:0;align-items:center}
+.ba .hd{font-size:14px;color:var(--muted);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ba .lab{font-size:21px;font-weight:600;height:156px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--line-2)}
+.ba .lab small{font-size:13.5px;font-weight:400;color:var(--muted);margin-top:4px}
+.ba .trk{height:156px;display:flex;flex-direction:column;justify-content:center;gap:10px;border-bottom:1px solid var(--line-2);padding-right:28px}
+/* 两根条共用同一刻度：宽度 = 值 / 该行最大值；前 = 灰、细；后 = 强调色、粗 */
+.bar{display:flex;align-items:center;gap:12px;font-family:var(--font-num);font-size:17px;color:var(--muted)}
+.bar i{display:block;height:10px;border-radius:2px;background:#D5D1CA;min-width:4px}
+.bar.after{color:var(--ink);font-weight:600;font-size:21px} .bar.after i{height:28px;background:var(--accent)}
+.bar em{font-style:normal;font-family:var(--font-sans);font-size:13px;font-weight:400;color:var(--muted)}
+.ba .dl{height:156px;display:flex;align-items:center;justify-content:flex-end;border-bottom:1px solid var(--line-2);font-family:var(--font-num);font-size:26px;font-weight:600;color:var(--accent)}
+</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">上线四周，三个指标同时变好</h1>
+<div class="ba">
+ <div class="hd">指标</div><div class="hd">上线前（灰）与上线后（红），同一刻度</div><div class="hd" style="text-align:right">变化</div>
+ <div class="lab">首次响应<small>分钟，越短越好</small></div>
+ <div class="trk"><div class="bar"><i style="width:86%"></i>240<em>分钟</em></div><div class="bar after"><i style="width:1.43%"></i>4<em>分钟</em></div></div><div class="dl">−98%</div>
+ <div class="lab">当天跟进率<small>当天被接住的线索占比</small></div>
+ <div class="trk"><div class="bar"><i style="width:40.4%"></i>47%</div><div class="bar after"><i style="width:75.7%"></i>88%</div></div><div class="dl">+41 点</div>
+ <div class="lab">成交转化<small>线索到签约</small></div>
+ <div class="trk"><div class="bar"><i style="width:44.1%"></i>7.6%</div><div class="bar after"><i style="width:68.4%"></i>11.8%</div></div><div class="dl">+55%</div>
+</div>
+<div class="note" data-lint-skip>14 · 前后两根条必须共用一个零点和一把尺；颜色只分「前 / 后」两种含义；变化量单列，右对齐</div>
+</div></body></html>

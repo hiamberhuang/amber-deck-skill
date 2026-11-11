@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>分层架构逐层落下</title>
+<!-- 18-layer-stack · 来源：原创 · 原创实现，无第三方代码。GSAP 3.13.0（GreenSock Standard License）由固定版本 CDN 引入；离线或加载失败时显示静态终态。 -->
+<!-- 参数：?end 直接静态终态（打印/截图）· ?rm 模拟减少动效 · ?clean 隐藏提示条 -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<style>
+:root{--bg:#F8F7F5;--fg:#0E0F13;--accent:#E4003A;--muted:#636874;--faint:#9AA0AB;--line:#E2DED7;--card:#FFFFFF;--soft:#FDF1F4;--page:#E9E7E3;--ease:cubic-bezier(.16,1,.3,1)}
+body.dark{--bg:#121113;--fg:#F5F2EE;--accent:#FF3369;--muted:#A9A2A6;--faint:#6F6970;--line:#2C292E;--card:#1C1A1E;--soft:#2A1520;--page:#060607}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--page);color:var(--fg);font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:0;top:0;width:1440px;height:810px;transform-origin:0 0;overflow:hidden;background:var(--bg);color:var(--fg)}
+h1,h2,h3,p{margin:0}
+.pad{position:absolute;inset:64px 88px 72px}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}
+.h1{font-size:76px;line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.h2{font-size:46px;line-height:1.22;font-weight:800;letter-spacing:-.015em}
+.h3{font-size:26px;line-height:1.35;font-weight:750}
+.lead{font-size:21px;line-height:1.7;color:var(--muted)}
+.small{font-size:14px;color:var(--muted)}
+.accent{color:var(--accent)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.note{position:absolute;right:88px;bottom:26px;font-size:12px;color:var(--faint)}
+.fx-hud{position:absolute;left:24px;bottom:18px;z-index:999;display:flex;gap:14px;align-items:center;font-size:12px;color:var(--faint);pointer-events:none;letter-spacing:.02em}
+.fx-hud b{font-weight:600;color:var(--muted)}
+.fx-hud .fx-step{font-variant-numeric:tabular-nums}
+.fx-clean .fx-hud{display:none}
+@media print{html,body{overflow:visible;background:var(--bg)}#stage{position:relative;transform:none!important}.fx-hud{display:none}}
+
+/* ---- effect ---- */
+.head{position:absolute;left:88px;top:70px}
+.head .h2{margin-top:14px}
+.stack{position:absolute;left:300px;top:200px;width:840px;height:520px;perspective:1400px}
+.ly{position:absolute;left:0;width:100%;height:96px;border-radius:16px;background:#1f1c21;border:1px solid #34303a;display:flex;align-items:center;padding:0 34px;gap:26px}
+.ly b{font-size:13px;letter-spacing:.14em;color:var(--muted);width:70px}
+.ly h3{font-size:26px;width:190px}
+.ly .mods{display:flex;gap:10px;flex:1}
+.ly .mods i{flex:1;height:40px;border-radius:9px;background:#2a262e;font-style:normal;font-size:13px;color:var(--muted);display:flex;align-items:center;justify-content:center}
+.ly.hl{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 20px 50px rgba(255,51,105,.18)}
+.ly.hl .mods i{background:#3a1424;color:#ffd0dc}
+.ann{position:absolute;left:1170px;top:0;width:200px;font-size:16px;color:var(--muted);line-height:1.6;border-left:2px solid var(--accent);padding-left:16px}
+.ann b{display:block;color:var(--fg);font-size:20px;margin-bottom:6px}
+</style>
+</head>
+<body class="dark">
+<div id="stage" data-keys="→ / 空格 落下一层 · 最后一步高亮 · ← 收回 · E 终态">
+<div class="head"><div class="eyebrow">Architecture · 分层</div><h2 class="h2">四层结构，<span class="accent">从下往上搭</span></h2></div>
+<div class="stack">
+  <div class="ly" style="top:0"><b>L4</b><h3>触点层</h3><div class="mods"><i>模块</i><i>模块</i><i>模块</i></div></div>
+  <div class="ly hl" style="top:130px"><b>L3</b><h3>应用层</h3><div class="mods"><i>模块</i><i>模块</i><i>模块</i><i>模块</i></div></div>
+  <div class="ly" style="top:260px"><b>L2</b><h3>能力层</h3><div class="mods"><i>模块</i><i>模块</i><i>模块</i></div></div>
+  <div class="ly" style="top:390px"><b>L1</b><h3>基础层</h3><div class="mods"><i>模块</i><i>模块</i></div></div>
+</div>
+<div class="ann" style="top:345px">今天重点<b>应用层</b>说明占位：为什么先讲这一层。</div>
+</div>
+<script>
+/* 共享运行时：舞台缩放、步进、减少动效、静态终态。原创。 */
+window.FX=(function(){
+  var q=new URLSearchParams(location.search);
+  var RM=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||q.has('rm');
+  var END=q.has('end');
+  var G=window.gsap;
+  var stage=document.getElementById('stage');
+  if(q.has('clean'))document.body.classList.add('fx-clean');
+  function fit(){var s=Math.min(innerWidth/1440,innerHeight/810);stage.style.transform='translate('+(innerWidth-1440*s)/2+'px,'+(innerHeight-810*s)/2+'px) scale('+s+')';}
+  addEventListener('resize',fit);fit();
+  var api={RM:RM,END:END,G:G,stage:stage,ready:false,i:0,P:[1],tl:null,loops:[],
+    $:function(s,r){return (r||stage).querySelector(s)},
+    $$:function(s,r){return Array.prototype.slice.call((r||stage).querySelectorAll(s))}};
+  var hudStep=null,opts={};
+  function label(){if(hudStep)hudStep.textContent=api.P.length>1?(api.i+1)+' / '+api.P.length:(api.END||api.RM||!G?'终态':'');}
+  function go(i,instant){
+    if(!api.tl)return;
+    i=Math.max(0,Math.min(api.P.length-1,i));
+    var back=i<api.i; api.i=i;
+    var t=api.P[i];
+    if(instant||RM){api.tl.pause();api.tl.seek(t,false);}
+    else if(back){api.tl.tweenTo(t,{duration:Math.min(.6,Math.max(.25,Math.abs(api.tl.time()-t))),ease:'power2.inOut'});}
+    else api.tl.tweenTo(t);
+    if(opts.onStep)opts.onStep(i);
+    label();
+  }
+  api.go=function(i){go(i)};
+  api.hide=function(tl,t){tl.fromTo(t,{autoAlpha:0},{autoAlpha:0,duration:.001,immediateRender:true},0);return tl;};
+  api.next=function(){go(api.i+1)};
+  api.prev=function(){go(api.i-1)};
+  api.end=function(){api.loops.forEach(function(l){l.pause&&l.pause()});go(api.P.length-1,true);if(opts.staticEnd&&!api.tl)opts.staticEnd();};
+  api.restart=function(){if(!api.tl)return;api.tl.pause().seek(0,false);api.i=-1;go(0)};
+  api.state=function(){var t=api.tl;return {i:api.i,n:api.P.length,progress:t?t.progress():1,active:t?t.isActive():false,gsap:!!G,rm:RM,loops:api.loops.filter(function(l){return l.isActive&&l.isActive()}).length}};
+  api.setup=function(o){
+    opts=o||{};
+    var hud=document.createElement('div');hud.className='fx-hud';
+    hud.innerHTML='<b>'+document.title+'</b><span class="fx-step"></span><span>'+(stage.dataset.keys||'→ / 空格 下一步 · ← 回退 · E 终态 · R 重播')+'</span>';
+    stage.appendChild(hud);hudStep=hud.querySelector('.fx-step');
+    if(!G){stage.classList.add('fx-static');if(opts.staticEnd)opts.staticEnd();api.ready=true;label();return;}
+    G.defaults({ease:'power3.out',duration:.8});
+    var tl=opts.build(G);api.tl=tl;tl.pause();
+    var P=Object.keys(tl.labels).filter(function(k){return /^s\d+$/.test(k)}).map(function(k){return tl.labels[k]});
+    P.push(tl.duration());
+    P=P.sort(function(a,b){return a-b}).filter(function(t,k,a){return k===0||t-a[k-1]>1e-3});
+    api.P=P;
+    if(END||(RM&&P.length===1)){tl.progress(1,false);api.i=P.length-1;}
+    else if(RM){tl.seek(P[0],false);api.i=0;}
+    else {api.i=0;tl.tweenTo(P[0]);}
+    if(opts.onStep)opts.onStep(api.i);
+    if(opts.loop){var made=opts.loop(G)||[];api.loops=made;if(RM||END)made.forEach(function(l){l.pause()});}
+    label();api.ready=true;
+  };
+  var wheelLock=0;
+  addEventListener('wheel',function(e){var n=Date.now();if(n<wheelLock||Math.abs(e.deltaY)<8)return;wheelLock=n+700;e.deltaY>0?api.next():api.prev();},{passive:true});
+  addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    if(opts.keys&&opts.keys[e.key.toLowerCase()]){opts.keys[e.key.toLowerCase()](e);return;}
+    if(['ArrowRight','ArrowDown',' ','PageDown','Enter'].indexOf(e.key)>-1){e.preventDefault();api.next();}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();api.prev();}
+    else if(e.key==='End'||e.key.toLowerCase()==='e'){e.preventDefault();api.end();}
+    else if(e.key==='Home'||e.key.toLowerCase()==='r'){e.preventDefault();api.restart();}
+    else if(e.key.toLowerCase()==='h'){document.body.classList.toggle('fx-clean');}
+  });
+  stage.addEventListener('click',function(e){if(e.target.closest('button,a,input,[data-noclick]'))return;api.next();});
+  return api;
+})();
+</script>
+<script>
+const lys=FX.$$('.ly').reverse();
+FX.setup({
+  build(g){
+    const tl=g.timeline();
+    tl.from('.head > *',{autoAlpha:0,y:30,stagger:.1,duration:.9,ease:'expo.out'},0);
+    FX.$('.ly.hl').classList.remove('hl');
+    tl.from(lys[0],{autoAlpha:0,y:-80,rotationX:30,duration:.9,ease:'expo.out'},.3);
+    lys.slice(1).forEach(l=>tl.from(l,{autoAlpha:0,duration:.001},0));
+    tl.from('.ann',{autoAlpha:0,duration:.001},0);
+    for(let k=1;k<lys.length;k++){const at='s'+k;tl.addLabel(at);tl.fromTo(lys[k],{autoAlpha:0,y:-90,rotationX:30},{autoAlpha:1,y:0,rotationX:0,duration:.9,ease:'expo.out',immediateRender:false},at);tl.from(lys[k].querySelectorAll('.mods i'),{opacity:0,y:8,stagger:.05,duration:.4,immediateRender:false},at+'+=.4');}
+    tl.addLabel('s'+lys.length);
+    tl.call(()=>FX.$$('.ly')[1].classList.toggle('hl',tl.time()>tl.labels['s'+lys.length]),null,'s'+lys.length+'+=.01');
+    tl.to(lys.filter((l,k)=>k!==2),{opacity:.45,duration:.5},'s'+lys.length);
+    tl.fromTo('.ann',{autoAlpha:0,x:-16},{autoAlpha:1,x:0,duration:.6,immediateRender:false},'s'+lys.length+'+=.2');
+    return tl;
+  },
+  staticEnd(){FX.$('.ly.hl')||FX.$$('.ly')[1].classList.add('hl');}
+});
+</script>
+</body>
+</html>

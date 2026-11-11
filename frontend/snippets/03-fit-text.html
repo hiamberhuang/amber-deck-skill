@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>03 fitText：文字自适应盒子</title>
+<style>
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:6px}
+.cell{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:30px}
+.fit{width:100%;height:330px;overflow:hidden;font-weight:600;line-height:1.22;letter-spacing:-.5px;text-wrap:balance;display:flex;align-items:center}
+.meta{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-2);font-size:14px;color:var(--muted)}
+</style></head><body><div class="slide" style="padding-top:70px">
+<h1 style="font-size:32px">同一个盒子，三种长度的标题，字号自动取能放下的最大值</h1>
+<div class="row" style="margin-top:34px" data-lint-skip="card-soup">
+ <div class="cell"><div class="fit"><span>响应快了六十倍</span></div><div class="meta"></div></div>
+ <div class="cell"><div class="fit"><span>线索不再漏接，每一条都有人负责到底</span></div><div class="meta"></div></div>
+ <div class="cell"><div class="fit"><span>从小红书私信、官网表单到展会名片，所有来源的线索进同一个池子，按同一套规则分给最合适的人</span></div><div class="meta"></div></div>
+</div>
+<div class="note" data-lint-skip>03 · keep-words.js（Intl.Segmenter 分词，词不拆行）+ fit-text.js（二分法）；下限 28px、上限 96px，到下限还溢出就标 data-fit="overflow" 让 QA 报错</div>
+</div>
+<script src="keep-words.js"></script>
+<script src="fit-text.js"></script>
+<script>
+document.fonts.ready.then(function(){
+  document.querySelectorAll('.fit').forEach(function(el){
+    keepWords(el);                       // 先保证词不拆，再找字号
+    var s = fitText(el,{min:28,max:96});
+    el.parentNode.querySelector('.meta').textContent = el.textContent.length+' 字 → '+s+'px · '+el.dataset.fit;
+  });
+  document.documentElement.dataset.ready='1';
+});
+</script></body></html>

@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"><title>10 对比：一边压暗，一边抬亮</title>
+<style>
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px;align-items:stretch;position:relative}
+.side{padding:38px 40px 30px}
+/* 弱侧：融进底色。无阴影、无边框、灰字、细字重 */
+.old{background:var(--soft);border-radius:var(--r-card) 0 0 var(--r-card);color:var(--muted);margin:18px 0}
+/* 强侧：唯一的白卡 + 唯一的阴影，比弱侧上下各高出 18px */
+.new{background:var(--card);border-radius:var(--r-card);box-shadow:0 0 0 1px var(--line),var(--sh-2);position:relative}
+.k{font-size:14px;color:var(--muted)} .new .k{color:var(--accent);font-weight:600}
+.t{font-size:30px;font-weight:600;line-height:1.3;margin-top:8px} .old .t{font-weight:400;color:var(--ink-2)}
+/* 两侧行高一致 → 同一行的条目水平对齐，才叫对比 */
+ul{list-style:none;margin-top:22px} li{display:grid;font-size:19px;grid-template-columns:96px 1fr;height:80px;align-items:center;border-top:1px solid var(--line-2)}
+.old li{border-color:#E6E3DD} li b{font-weight:400;font-size:14px;color:var(--muted)}
+.new li span{color:var(--ink);font-weight:500} .new li em{font-style:normal;color:var(--accent);font-weight:600}
+</style></head><body><div class="slide" style="padding-top:64px">
+<h1 style="font-size:40px">同样一条线索，两种走法</h1>
+<div class="cmp">
+ <div class="side old"><div class="k">过去</div><div class="t">群里喊一声，谁有空谁接</div>
+  <ul><li><b>分配</b><span>主管每天早上手动派单</span></li><li><b>首次响应</b><span>平均 4 小时</span></li><li><b>超时处理</b><span>没人知道哪条超时了</span></li><li><b>复盘</b><span>月底翻聊天记录</span></li></ul></div>
+ <div class="side new"><div class="k">现在</div><div class="t">规则自动分到人，超时自动升级</div>
+  <ul><li><b>分配</b><span>按区域、行业、负载实时推送</span></li><li><b>首次响应</b><span><em>4 分钟</em> 以内</span></li><li><b>超时处理</b><span>15 分钟无人接，升级给主管</span></li><li><b>复盘</b><span>每条线索全程留痕</span></li></ul></div>
+</div>
+<div class="note" data-lint-skip>10 · 强弱靠四样东西同时拉开：底色、阴影、字重、字色；强调色只出现在强侧，且只有两处</div>
+</div></body></html>
